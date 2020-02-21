@@ -1,4 +1,4 @@
-# SYSPipeRVarseq <img src="https://github.com/tgirke/systemPipeR/raw/gh-pages/images/systemPipeR.png" align="right" height="139" />
+# systemPipeVARseq <img src="https://github.com/tgirke/systemPipeR/raw/gh-pages/images/systemPipeR.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -31,7 +31,7 @@ To install the package, please use the _`BiocManager::install`_ command:
 ```
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
-BiocManager::install("systemPipeR/SYSPipeRVarseq", build_vignettes=TRUE, dependencies=TRUE)
+BiocManager::install("systemPipeR/systemPipeVARseq", build_vignettes=TRUE, dependencies=TRUE)
 ```
 To obtain the *systemPipeR* and *systemPipeRdata*, please run as follow:
 ```

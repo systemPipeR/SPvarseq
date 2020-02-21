@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VAR-Seq Workflow Template • SYSPipeRVarseq</title>
+<title>VAR-Seq Workflow Template • systemPipeVARseq</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">SYSPipeRVarseq</a>
+        <a class="navbar-link" href="../index.html">systemPipeVARseq</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
@@ -47,6 +47,9 @@
 </li>
 <li>
   <a></a>
+</li>
+<li>
+  <a href="../articles/systemPipeVARseq.html">Get started</a>
 </li>
 <li>
   <a href="../articles/systemPipeVARseq.html">
@@ -85,9 +88,9 @@
       <h1>VAR-Seq Workflow Template</h1>
                         <h4 class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 class="date">Last update: 14 February, 2020</h4>
+            <h4 class="date">Last update: 20 February, 2020</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/systemPipeR/SYSPipeRVarseq/blob/master/vignettes/systemPipeVARseq.Rmd"><code>vignettes/systemPipeVARseq.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/systemPipeR/systemPipeVARseq/blob/master/vignettes/systemPipeVARseq.Rmd"><code>vignettes/systemPipeVARseq.Rmd</code></a></small>
       <div class="hidden name"><code>systemPipeVARseq.Rmd</code></div>
 
     </div>
@@ -165,83 +168,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span>()  <span class="co"># returns content of current working directory</span></a></code></pre></div>
 <p>The <code>systemPipeR</code> package needs to be loaded to perform the analysis steps shown in this report <span class="citation">(H Backman and Girke 2016)</span>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(systemPipeR)</a></code></pre></div>
-<pre><code>## Loading required package: Rsamtools</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: 'BiocGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall,
-##     clusterEvalQ, clusterExport, clusterMap,
-##     parApply, parCapply, parLapply, parLapplyLB,
-##     parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, append, as.data.frame, basename,
-##     cbind, colnames, dirname, do.call, duplicated,
-##     eval, evalq, Filter, Find, get, grep, grepl,
-##     intersect, is.unsorted, lapply, Map, mapply,
-##     match, mget, order, paste, pmax, pmax.int, pmin,
-##     pmin.int, Position, rank, rbind, Reduce,
-##     rownames, sapply, setdiff, sort, table, tapply,
-##     union, unique, unsplit, which, which.max,
-##     which.min</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## 
-## Attaching package: 'S4Vectors'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     expand.grid</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: GenomicRanges</code></pre>
-<pre><code>## Loading required package: Biostrings</code></pre>
-<pre><code>## Loading required package: XVector</code></pre>
-<pre><code>## 
-## Attaching package: 'Biostrings'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     strsplit</code></pre>
-<pre><code>## Loading required package: ShortRead</code></pre>
-<pre><code>## Loading required package: BiocParallel</code></pre>
-<pre><code>## Loading required package: GenomicAlignments</code></pre>
-<pre><code>## Loading required package: SummarizedExperiment</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view
-##     with 'browseVignettes()'. To cite Bioconductor,
-##     see 'citation("Biobase")', and for packages
-##     'citation("pkgname")'.</code></pre>
-<pre><code>## Loading required package: DelayedArray</code></pre>
-<pre><code>## Loading required package: matrixStats</code></pre>
-<pre><code>## 
-## Attaching package: 'matrixStats'</code></pre>
-<pre><code>## The following objects are masked from 'package:Biobase':
-## 
-##     anyMissing, rowMedians</code></pre>
-<pre><code>## 
-## Attaching package: 'DelayedArray'</code></pre>
-<pre><code>## The following objects are masked from 'package:matrixStats':
-## 
-##     colMaxs, colMins, colRanges, rowMaxs, rowMins,
-##     rowRanges</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     aperm, apply, rowsum</code></pre>
-<pre><code>## </code></pre>
-<pre><code>## 
-## Attaching package: 'systemPipeR'</code></pre>
-<pre><code>## The following object is masked from 'package:BiocStyle':
-## 
-##     output</code></pre>
 <p>If applicable users can load custom functions not provided by <code>systemPipeR</code>. Skip this step if this is not the case.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"systemPipeVARseq_Fct.R"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"systemPipeVARseq_Fct.R"</span>)</a></code></pre></div>
 <p>If you are running on a single machine, use following code as an exmaple to check if some tools used in this workflow are in your environment <strong>PATH</strong>. No warning message should be shown if all tools are installed.</p>
 </div>
 </div>
@@ -253,9 +181,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 class="hasAnchor">
 <a href="#experiment-definition-provided-by-targets-file" class="anchor"></a>Experiment definition provided by <code>targets</code> file</h2>
 <p>The <code>targets</code> file defines all FASTQ files and sample comparisons of the analysis workflow.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">targetspath &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">targets &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(targetspath, <span class="dt">comment.char =</span> <span class="st">"#"</span>)</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">targets[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">targetspath &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">targets &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(targetspath, <span class="dt">comment.char =</span> <span class="st">"#"</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">targets[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
 <pre><code>##                     FileName1                   FileName2
 ## 1 ./data/SRR446027_1.fastq.gz ./data/SRR446027_2.fastq.gz
 ## 2 ./data/SRR446028_1.fastq.gz ./data/SRR446028_2.fastq.gz
@@ -271,31 +199,31 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 class="hasAnchor">
 <a href="#read-quality-filtering-and-trimming" class="anchor"></a>Read quality filtering and trimming</h2>
 <p>The following removes reads with low quality base calls (here a certain pattern) from all FASTQ files.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">targetsPE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/preprocessReads/trim-pe"</span>, </a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">    <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">trim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"trim-pe.cwl"</span>, </a>
-<a class="sourceLine" id="cb44-5" data-line-number="5">    <span class="dt">input_file =</span> <span class="st">"trim-pe.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb44-6" data-line-number="6">trim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(trim, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
-<a class="sourceLine" id="cb44-7" data-line-number="7">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb44-8" data-line-number="8">trim</a>
-<a class="sourceLine" id="cb44-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(trim)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb44-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb44-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/preprocessReads.html">preprocessReads</a></span>(<span class="dt">args =</span> trim, <span class="dt">Fct =</span> <span class="st">"trimLRPatterns(Rpattern='GCCCGGGTAA', subject=fq)"</span>, </a>
-<a class="sourceLine" id="cb44-12" data-line-number="12">    <span class="dt">batchsize =</span> <span class="fl">1e+05</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">compress =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb44-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> trim, <span class="dt">file =</span> <span class="st">"targets_trimPE.txt"</span>, <span class="dt">step =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb44-14" data-line-number="14">    <span class="dt">new_col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FileName1"</span>, <span class="st">"FileName2"</span>), <span class="dt">new_col_output_index =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb44-15" data-line-number="15">        <span class="dv">2</span>), <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">targetsPE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/preprocessReads/trim-pe"</span>, </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">trim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"trim-pe.cwl"</span>, </a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="dt">input_file =</span> <span class="st">"trim-pe.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">trim &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(trim, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">trim</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(trim)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/preprocessReads.html">preprocessReads</a></span>(<span class="dt">args =</span> trim, <span class="dt">Fct =</span> <span class="st">"trimLRPatterns(Rpattern='GCCCGGGTAA', subject=fq)"</span>, </a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">    <span class="dt">batchsize =</span> <span class="fl">1e+05</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">compress =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> trim, <span class="dt">file =</span> <span class="st">"targets_trimPE.txt"</span>, <span class="dt">step =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">    <span class="dt">new_col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"FileName1"</span>, <span class="st">"FileName2"</span>), <span class="dt">new_col_output_index =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">        <span class="dv">2</span>), <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="fastq-quality-report" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fastq-quality-report" class="anchor"></a>FASTQ quality report</h2>
 <p>The following <code>seeFastq</code> and <code>seeFastqPlot</code> functions generate and plot a series of useful quality statistics for a set of FASTQ files including per cycle quality box plots, base proportions, base-level quality trends, relative k-mer diversity, length and occurrence distribution of reads, number of reads above quality cutoffs and mean quality distribution. The results are written to a PDF file named <code>fastqReport.pdf</code>. Use the output from previous step (fastq trimming) as the demonstration here to generate fastq report.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">fqlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html">seeFastq</a></span>(<span class="dt">fastq =</span> <span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(trim), <span class="dt">batchsize =</span> <span class="fl">1e+05</span>, </a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">    <span class="dt">klength =</span> <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"./results/fastqReport.pdf"</span>, <span class="dt">height =</span> <span class="dv">18</span>, <span class="dt">width =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(fqlist))</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html">seeFastqPlot</a></span>(fqlist)</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">fqlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html">seeFastq</a></span>(<span class="dt">fastq =</span> <span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(trim), <span class="dt">batchsize =</span> <span class="fl">1e+05</span>, </a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">    <span class="dt">klength =</span> <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"./results/fastqReport.pdf"</span>, <span class="dt">height =</span> <span class="dv">18</span>, <span class="dt">width =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(fqlist))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html">seeFastqPlot</a></span>(fqlist)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
 <img src="results/fastqReport.png"><div align="center">
 Figure 1: FASTQ quality report for 18 samples
 </div>
@@ -315,73 +243,73 @@ Figure 1: FASTQ quality report for 18 samples
 <h3 class="hasAnchor">
 <a href="#build-index-and-dictionary-files-for-bwa-and-gatk" class="anchor"></a>Build index and dictionary files for BWA and GATK</h3>
 <p>The following object <code>dir_path</code> is the folder where all <code>BWA</code> and <code>GATK</code> param files are located.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/gatk"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/gatk"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a></code></pre></div>
 <p>Build the index and dictionary files for BWA and GATK to run.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co">## Index for BWA</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"bwa-index.cwl"</span>, </a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)  <span class="co"># shows the command</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)  <span class="co"># shows the expected output files</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="co"># Run single Machine</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb47-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb47-10" data-line-number="10"><span class="co">## Index needed for gatk tools</span></a>
-<a class="sourceLine" id="cb47-11" data-line-number="11">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"fasta_dict.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, </a>
-<a class="sourceLine" id="cb47-12" data-line-number="12">    <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb47-13" data-line-number="13">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb47-14" data-line-number="14">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb47-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb47-16" data-line-number="16"><span class="co">## Index</span></a>
-<a class="sourceLine" id="cb47-17" data-line-number="17">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"fasta_faidx.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, </a>
-<a class="sourceLine" id="cb47-18" data-line-number="18">    <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb47-19" data-line-number="19">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb47-20" data-line-number="20">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Index for BWA</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"bwa-index.cwl"</span>, </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)  <span class="co"># shows the command</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)  <span class="co"># shows the expected output files</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co"># Run single Machine</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">## Index needed for gatk tools</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"fasta_dict.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, </a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">    <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb13-13" data-line-number="13">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb13-14" data-line-number="14">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">## Index</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"fasta_faidx.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, </a>
+<a class="sourceLine" id="cb13-18" data-line-number="18">    <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb13-19" data-line-number="19">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb13-20" data-line-number="20">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="run-the-read-mapping" class="section level3">
 <h3 class="hasAnchor">
 <a href="#run-the-read-mapping" class="anchor"></a>Run the read mapping</h3>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">targetsPE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"bwa-pe.cwl"</span>, </a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">targetsPE &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"targetsPE.txt"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"bwa-pe.cwl"</span>, </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
 <p>Runs the alignments sequentially (<em>e.g.</em> on a single machine) by <code>runCommandline</code> function.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">file =</span> <span class="st">"./results/targetsPE.txt"</span>, </a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"BWA_SAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb49-4" data-line-number="4">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">file =</span> <span class="st">"./results/targetsPE.txt"</span>, </a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"BWA_SAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Alternatively, the alignment jobs can be submitted to a compute cluster. Here is the example to run cluster jobs by <code>clusterRun</code> on a <code>slurm</code> based system. 4 cpus for each task for 18 samples, totally 72 cpus.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(batchtools)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">resources &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">walltime =</span> <span class="dv">120</span>, <span class="dt">ntasks =</span> <span class="dv">1</span>, <span class="dt">ncpus =</span> <span class="dv">4</span>, <span class="dt">memory =</span> <span class="dv">1024</span>)</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">reg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/clusterRun.html">clusterRun</a></span>(args, <span class="dt">FUN =</span> runCommandline, <span class="dt">more.args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">args =</span> args, </a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">    <span class="dt">dir =</span> <span class="ot">FALSE</span>, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>), <span class="dt">conffile =</span> <span class="st">".batchtools.conf.R"</span>, </a>
-<a class="sourceLine" id="cb50-5" data-line-number="5">    <span class="dt">template =</span> <span class="st">"batchtools.slurm.tmpl"</span>, <span class="dt">Njobs =</span> <span class="dv">18</span>, <span class="dt">runid =</span> <span class="st">"01"</span>, </a>
-<a class="sourceLine" id="cb50-6" data-line-number="6">    <span class="dt">resourceList =</span> resources)</a>
-<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/batchtools/man/getStatus.html">getStatus</a></span>(<span class="dt">reg =</span> reg)</a>
-<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targetsPE.txt"</span>, <span class="dt">step =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb50-9" data-line-number="9">    <span class="dt">new_col =</span> <span class="st">"BWA_SAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(batchtools)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">resources &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">walltime =</span> <span class="dv">120</span>, <span class="dt">ntasks =</span> <span class="dv">1</span>, <span class="dt">ncpus =</span> <span class="dv">4</span>, <span class="dt">memory =</span> <span class="dv">1024</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">reg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/clusterRun.html">clusterRun</a></span>(args, <span class="dt">FUN =</span> runCommandline, <span class="dt">more.args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">args =</span> args, </a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">    <span class="dt">dir =</span> <span class="ot">FALSE</span>, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>), <span class="dt">conffile =</span> <span class="st">".batchtools.conf.R"</span>, </a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    <span class="dt">template =</span> <span class="st">"batchtools.slurm.tmpl"</span>, <span class="dt">Njobs =</span> <span class="dv">18</span>, <span class="dt">runid =</span> <span class="st">"01"</span>, </a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    <span class="dt">resourceList =</span> resources)</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/batchtools/man/getStatus.html">getStatus</a></span>(<span class="dt">reg =</span> reg)</a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targetsPE.txt"</span>, <span class="dt">step =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">    <span class="dt">new_col =</span> <span class="st">"BWA_SAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Check whether all BAM files have been created.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">outpaths &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(outpaths)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">outpaths &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(outpaths)</a></code></pre></div>
 </div>
 </div>
 <div id="read-and-alignment-stats" class="section level2">
 <h2 class="hasAnchor">
 <a href="#read-and-alignment-stats" class="anchor"></a>Read and alignment stats</h2>
 <p>The following generates a summary table of the number of reads in each sample and how many of them aligned to the reference.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">read_statsDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/alignStats.html">alignStats</a></span>(<span class="dt">args =</span> args)</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(read_statsDF, <span class="st">"results/alignStats.xls"</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">read_statsDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/alignStats.html">alignStats</a></span>(<span class="dt">args =</span> args)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(read_statsDF, <span class="st">"results/alignStats.xls"</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
 </div>
 <div id="create-symbolic-links-for-viewing-bam-files-in-igv" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-symbolic-links-for-viewing-bam-files-in-igv" class="anchor"></a>Create symbolic links for viewing BAM files in IGV</h2>
 <p>The <code>symLink2bam</code> function creates symbolic links to view the BAM alignment files in a genome browser such as IGV. The corresponding URLs are written to a file with a path specified under <code>urlfile</code>, here <code>IGVurl.txt</code>.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/symLink2bam.html">symLink2bam</a></span>(<span class="dt">sysargs =</span> args, <span class="dt">htmldir =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"~/.html/"</span>, <span class="st">"somedir/"</span>), </a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">    <span class="dt">urlbase =</span> <span class="st">"http://cluster.hpcc.ucr.edu/~tgirke/"</span>, <span class="dt">urlfile =</span> <span class="st">"IGVurl.txt"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/symLink2bam.html">symLink2bam</a></span>(<span class="dt">sysargs =</span> args, <span class="dt">htmldir =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"~/.html/"</span>, <span class="st">"somedir/"</span>), </a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">    <span class="dt">urlbase =</span> <span class="st">"http://cluster.hpcc.ucr.edu/~tgirke/"</span>, <span class="dt">urlfile =</span> <span class="st">"IGVurl.txt"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="variant-calling" class="section level1">
@@ -399,83 +327,83 @@ Figure 1: FASTQ quality report for 18 samples
 <a href="#step1-fastq-to-ubam" class="anchor"></a>Step1: <code>fastq</code> to <code>ubam</code>
 </h3>
 <p>Convert <code>fastq</code> files to <code>bam</code> files to prepare for the following step. It is very important to specific your sequencing platform, default is <code>illumina</code>. User need to change <code>gatk_fastq2ubam.cwl</code> if the platform is different. Platform information is needed for the variant caller in later steps to correct calling parameters.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/gatk"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">targets.gatk &lt;-<span class="st"> "./results/targetsPE.txt"</span>  <span class="co">## targets generated from BWA</span></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_fastq2ubam.cwl"</span>, </a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb54-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
-<a class="sourceLine" id="cb54-6" data-line-number="6">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb54-9" data-line-number="9">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb54-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb54-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_UBAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb54-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/gatk"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">targets.gatk &lt;-<span class="st"> "./results/targetsPE.txt"</span>  <span class="co">## targets generated from BWA</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_fastq2ubam.cwl"</span>, </a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FASTQ_PATH1_"</span>, </a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">    <span class="dt">FileName2 =</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb20-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_UBAM"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="step2-merge-bam-and-ubam" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step2-merge-bam-and-ubam" class="anchor"></a>Step2: Merge <code>bam</code> and <code>ubam</code>
 </h3>
 <p>This step merges a <code>bam</code> and <code>ubam</code> and creates a third <code>bam</code> file that contains alignment information and remaining information that was removed by the aligner like <code>BWA</code>. The removed information is essential for variant statistics calculation. Previous steps are recommended, but variant calling can still be performed without these steps.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_mergebams.cwl"</span>, </a>
-<a class="sourceLine" id="cb55-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb55-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">BWA_SAM =</span> <span class="st">"_bwasam_"</span>, <span class="dt">GATK_UBAM =</span> <span class="st">"_ubam_"</span>, </a>
-<a class="sourceLine" id="cb55-5" data-line-number="5">    <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb55-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb55-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_MERGE"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb55-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_mergebams.cwl"</span>, </a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">BWA_SAM =</span> <span class="st">"_bwasam_"</span>, <span class="dt">GATK_UBAM =</span> <span class="st">"_ubam_"</span>, </a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">    <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_MERGE"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb21-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="step3-sort-bam-files-by-genomic-coordinates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step3-sort-bam-files-by-genomic-coordinates" class="anchor"></a>Step3: Sort <code>bam</code> files by genomic coordinates</h3>
 <p>Sort <code>bam</code> files by genomic coordinates.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_sort.cwl"</span>, </a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
-<a class="sourceLine" id="cb56-5" data-line-number="5">    <span class="dt">GATK_MERGE =</span> <span class="st">"_mergebam_"</span>))</a>
-<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb56-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb56-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_SORT"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb56-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_sort.cwl"</span>, </a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">    <span class="dt">GATK_MERGE =</span> <span class="st">"_mergebam_"</span>))</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb22-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb22-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_SORT"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="step4-mark-duplicates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step4-mark-duplicates" class="anchor"></a>Step4: Mark duplicates</h3>
 <p>Mark PCR artifacts in sequencing. A <code>duplicate_metrics</code> file will also be produced by this step, but will not be used for the next step. This file is just for the user to check duplicates status summary.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_markduplicates.cwl"</span>, </a>
-<a class="sourceLine" id="cb57-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">    <span class="dt">GATK_SORT =</span> <span class="st">"_sort_"</span>))</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb57-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb57-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GATK_MARK"</span>, <span class="st">"GATK_MARK_METRICS"</span>), </a>
-<a class="sourceLine" id="cb57-11" data-line-number="11">    <span class="dt">new_col_output_index =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_markduplicates.cwl"</span>, </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">    <span class="dt">GATK_SORT =</span> <span class="st">"_sort_"</span>))</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GATK_MARK"</span>, <span class="st">"GATK_MARK_METRICS"</span>), </a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">    <span class="dt">new_col_output_index =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="step5-fixing-tags" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step5-fixing-tags" class="anchor"></a>Step5: Fixing tags</h3>
 <p>Takes the <code>bam</code> from the last step and calculates the NM, MD, and UQ tags. These tags are important for variant calling and filtering. This step is recommended but can be skipped.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_fixtag.cwl"</span>, </a>
-<a class="sourceLine" id="cb58-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb58-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
-<a class="sourceLine" id="cb58-5" data-line-number="5">    <span class="dt">GATK_MARK =</span> <span class="st">"_mark_"</span>))</a>
-<a class="sourceLine" id="cb58-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb58-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb58-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb58-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb58-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_FIXED"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb58-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_fixtag.cwl"</span>, </a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">    <span class="dt">GATK_MARK =</span> <span class="st">"_mark_"</span>))</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GATK_FIXED"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb24-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Up till this step, sample preprocess is done. All analysis ready <code>BAM</code> files and their index <code>.bai</code> files are created. Individual and cohort calling by <code>HaplotypeCaller</code> is performed from the next step.</p>
 </div>
 <div id="step6-haplotypecaller-gvcf" class="section level3">
@@ -483,68 +411,68 @@ Figure 1: FASTQ quality report for 18 samples
 <a href="#step6-haplotypecaller-gvcf" class="anchor"></a>Step6: HaplotypeCaller <code>gvcf</code>
 </h3>
 <p>The <code>HaplotypeCaller</code> is running a <strong>gvcf</strong> mode in this step. G stands for ‘genomic’. The file not only contains variant sites information but also non-variant sites information; thus, at the following step, the cohort caller can use this information to validate the true variants.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_haplotypecaller.cwl"</span>, </a>
-<a class="sourceLine" id="cb59-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb59-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">    <span class="dt">GATK_FIXED =</span> <span class="st">"_fixed_"</span>))</a>
-<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb59-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb59-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GVCF"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_haplotypecaller.cwl"</span>, </a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">    <span class="dt">GATK_FIXED =</span> <span class="st">"_fixed_"</span>))</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb25-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"GVCF"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="step7-import-all-gvcfs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step7-import-all-gvcfs" class="anchor"></a>Step7: Import all <code>gvcfs</code>
 </h3>
 <p>It is recommended to import all <strong>gvcfs</strong> to a <a href="https://github.com/Intel-HLS/GenomicsDB/wiki">TileDB</a> database for fast cohort variant calling at the following step. Note: if you are working with non-diploid data, use <code>CombineGVCFs</code> function from <code>GATK</code> and change the <code>gvcf_db_folder</code> parameter in <code>param/cwl/gatk/gatk.yaml</code> to be your combined <strong>gvcf</strong> file.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># drop all *.g.vcf.gz files into results folder, make sure</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="co"># the tbi index is also there.</span></a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"gatk_genomicsDBImport.cwl"</span>, </a>
-<a class="sourceLine" id="cb60-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb60-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
-<a class="sourceLine" id="cb60-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
-<a class="sourceLine" id="cb60-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># drop all *.g.vcf.gz files into results folder, make sure</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co"># the tbi index is also there.</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"gatk_genomicsDBImport.cwl"</span>, </a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="step8-cohort-calling-of-gvcf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step8-cohort-calling-of-gvcf" class="anchor"></a>Step8: Cohort calling of <code>gvcf</code>
 </h3>
 <p>Assess variants by information from all gvcfs. A collective vcf called <code>samples.vcf.gz</code> is created by default naming.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"gatk_genotypeGVCFs.cwl"</span>, </a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb61-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
-<a class="sourceLine" id="cb61-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
-<a class="sourceLine" id="cb61-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="ot">NULL</span>, <span class="dt">wf_file =</span> <span class="st">"gatk_genotypeGVCFs.cwl"</span>, </a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="step9-cohort-hard-filter-variants" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step9-cohort-hard-filter-variants" class="anchor"></a>Step9: Cohort hard filter variants</h3>
 <p>VQSR is not included in this workflow. Variants are hard filtered together. See this <a href="https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set">Post</a> for parameters for hard filtering. Change these settings in <code>param/cwl/gak/gatk_variantFiltration.sh</code> if needed.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"gatk_variantFiltration.cwl"</span>, </a>
-<a class="sourceLine" id="cb62-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb62-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
-<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
-<a class="sourceLine" id="cb62-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">wf_file =</span> <span class="st">"gatk_variantFiltration.cwl"</span>, </a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args)</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="step10-extract-variant" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step10-extract-variant" class="anchor"></a>Step10: Extract variant</h3>
 <p>After cohort calling, filtering, all variants for all samples are stored in one big file. Extract variants for each sample and save them separately (only variants that have passed the filters are stored).</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_select_variant.cwl"</span>, </a>
-<a class="sourceLine" id="cb63-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb63-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb63-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb63-7" data-line-number="7">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb63-9" data-line-number="9">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb63-10" data-line-number="10">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">targets.gatk &lt;-<span class="st"> "./results/targets_gatk.txt"</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targets.gatk, <span class="dt">wf_file =</span> <span class="st">"gatk_select_variant.cwl"</span>, </a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">    <span class="dt">input_file =</span> <span class="st">"gatk.yaml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb29-10" data-line-number="10">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="variant-calling-with-bcftools" class="section level2">
@@ -552,18 +480,18 @@ Figure 1: FASTQ quality report for 18 samples
 <a href="#variant-calling-with-bcftools" class="anchor"></a>Variant calling with <code>BCFtools</code>
 </h2>
 <p>The following runs the variant calling with <code>BCFtools</code>. This tool takes <code>BWA</code> aligned <code>BAM</code> files, sort, mark duplicates by <code>samtools</code> and finally call variants by <code>BCFtools</code>.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/workflow-bcftools"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">targetsPE &lt;-<span class="st"> "./results/targetsPE.txt"</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"workflow_bcftools.cwl"</span>, </a>
-<a class="sourceLine" id="cb64-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"bcftools.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb64-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
-<a class="sourceLine" id="cb64-6" data-line-number="6">    <span class="dt">BWA_SAM =</span> <span class="st">"_SAM_"</span>))</a>
-<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb64-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb64-9" data-line-number="9">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb64-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb64-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">5</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb64-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/workflow-bcftools"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">targetsPE &lt;-<span class="st"> "./results/targetsPE.txt"</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> targetsPE, <span class="dt">wf_file =</span> <span class="st">"workflow_bcftools.cwl"</span>, </a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">    <span class="dt">input_file =</span> <span class="st">"bcftools.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>, </a>
+<a class="sourceLine" id="cb30-6" data-line-number="6">    <span class="dt">BWA_SAM =</span> <span class="st">"_SAM_"</span>))</a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(args[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="dt">args =</span> args, <span class="dt">make_bam =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb30-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb30-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">5</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb30-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Variant calling ends here. Downstream analysis starts from the next section.</p>
 </div>
 <div id="inspect-vcf-file" class="section level2">
@@ -572,14 +500,14 @@ Figure 1: FASTQ quality report for 18 samples
 <p>Scripts of downstream analysis are stored in <code>param/cwl/varseq_downstream</code></p>
 <pre class="r_vcf"><code>dir_path &lt;- system.file("extdata/cwl/varseq", package="systemPipeR")   </code></pre>
 <p>VCF files can be imported into R with the <code>readVcf</code> function. Both <code>VCF</code> and <code>VRanges</code> objects provide convenient data structure for working with variant data (<em>e.g.</em> SNP quality filtering).</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(VariantAnnotation)</a>
-<a class="sourceLine" id="cb66-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb66-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb66-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>))</a>
-<a class="sourceLine" id="cb66-5" data-line-number="5">vcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="st">"A. thaliana"</span>)</a>
-<a class="sourceLine" id="cb66-6" data-line-number="6">vcf</a>
-<a class="sourceLine" id="cb66-7" data-line-number="7">vr &lt;-<span class="st"> </span><span class="kw">as</span>(vcf, <span class="st">"VRanges"</span>)</a>
-<a class="sourceLine" id="cb66-8" data-line-number="8">vr</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(VariantAnnotation)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>))</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">vcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="st">"A. thaliana"</span>)</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">vcf</a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">vr &lt;-<span class="st"> </span><span class="kw">as</span>(vcf, <span class="st">"VRanges"</span>)</a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">vr</a></code></pre></div>
 </div>
 </div>
 <div id="filter-variants" class="section level1">
@@ -592,41 +520,41 @@ Figure 1: FASTQ quality report for 18 samples
 </h2>
 <p>The below example filters for variants that are supported by <code>&gt;=x</code> reads and &gt;=80% of them support the called variants. In addition, all variants need to pass <code>&gt;=x</code> of the soft filters recorded in the VCF files generated by GATK. Since the toy data used for this workflow is very small, the chosen settings are unreasonabley relaxed. A more reasonable filter setting is given in the line below (here commented out).</p>
 <p>There is already some cohort filtering in GATK step 10. Some additional hard filtering is provided here. Apply if you need or skip this step.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(VariantAnnotation)</a>
-<a class="sourceLine" id="cb67-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(BBmisc)  <span class="co"># Defines suppressAll()</span></a>
-<a class="sourceLine" id="cb67-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb67-5" data-line-number="5">    <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb67-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb67-7" data-line-number="7">filter &lt;-<span class="st"> "totalDepth(vr) &gt;= 2 &amp; (altDepth(vr) / totalDepth(vr) &gt;= 0.8)"</span></a>
-<a class="sourceLine" id="cb67-8" data-line-number="8"><span class="co"># filter &lt;- 'totalDepth(vr) &gt;= 20 &amp; (altDepth(vr) /</span></a>
-<a class="sourceLine" id="cb67-9" data-line-number="9"><span class="co"># totalDepth(vr) &gt;= 0.8)'</span></a>
-<a class="sourceLine" id="cb67-10" data-line-number="10"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/filterVars.html">filterVars</a></span>(args, filter, <span class="dt">varcaller =</span> <span class="st">"gatk"</span>, <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
-<a class="sourceLine" id="cb67-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb67-12" data-line-number="12">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb67-13" data-line-number="13">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(VariantAnnotation)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(BBmisc)  <span class="co"># Defines suppressAll()</span></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">    <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb33-7" data-line-number="7">filter &lt;-<span class="st"> "totalDepth(vr) &gt;= 2 &amp; (altDepth(vr) / totalDepth(vr) &gt;= 0.8)"</span></a>
+<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co"># filter &lt;- 'totalDepth(vr) &gt;= 20 &amp; (altDepth(vr) /</span></a>
+<a class="sourceLine" id="cb33-9" data-line-number="9"><span class="co"># totalDepth(vr) &gt;= 0.8)'</span></a>
+<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/filterVars.html">filterVars</a></span>(args, filter, <span class="dt">varcaller =</span> <span class="st">"gatk"</span>, <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
+<a class="sourceLine" id="cb33-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb33-12" data-line-number="12">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb33-13" data-line-number="13">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="filter-variants-called-by-bcftools" class="section level2">
 <h2 class="hasAnchor">
 <a href="#filter-variants-called-by-bcftools" class="anchor"></a>Filter variants called by <code>BCFtools</code>
 </h2>
 <p>The following shows how to filter the VCF files generated by <code>BCFtools</code> using similar parameter settings as in the previous filtering of the GATK results.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_bcf.txt"</span>, <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, </a>
-<a class="sourceLine" id="cb68-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb68-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb68-4" data-line-number="4">filter &lt;-<span class="st"> "rowSums(vr) &gt;= 2 &amp; (rowSums(vr[,3:4])/rowSums(vr[,1:4]) &gt;= 0.8)"</span></a>
-<a class="sourceLine" id="cb68-5" data-line-number="5"><span class="co"># filter &lt;- 'rowSums(vr) &gt;= 20 &amp;</span></a>
-<a class="sourceLine" id="cb68-6" data-line-number="6"><span class="co"># (rowSums(vr[,3:4])/rowSums(vr[,1:4]) &gt;= 0.8)'</span></a>
-<a class="sourceLine" id="cb68-7" data-line-number="7"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/filterVars.html">filterVars</a></span>(args, filter, <span class="dt">varcaller =</span> <span class="st">"bcftools"</span>, </a>
-<a class="sourceLine" id="cb68-8" data-line-number="8">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
-<a class="sourceLine" id="cb68-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_filter_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb68-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb68-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_bcf.txt"</span>, <span class="dt">wf_file =</span> <span class="st">"filter.cwl"</span>, </a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">    <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">filter &lt;-<span class="st"> "rowSums(vr) &gt;= 2 &amp; (rowSums(vr[,3:4])/rowSums(vr[,1:4]) &gt;= 0.8)"</span></a>
+<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co"># filter &lt;- 'rowSums(vr) &gt;= 20 &amp;</span></a>
+<a class="sourceLine" id="cb34-6" data-line-number="6"><span class="co"># (rowSums(vr[,3:4])/rowSums(vr[,1:4]) &gt;= 0.8)'</span></a>
+<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/filterVars.html">filterVars</a></span>(args, filter, <span class="dt">varcaller =</span> <span class="st">"bcftools"</span>, </a>
+<a class="sourceLine" id="cb34-8" data-line-number="8">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
+<a class="sourceLine" id="cb34-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_filter_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb34-10" data-line-number="10">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb34-11" data-line-number="11">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Check filtering outcome for one sample</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">as</span>(<span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="dt">genome =</span> <span class="st">"Ath"</span>), <span class="st">"VRanges"</span>)[, </a>
-<a class="sourceLine" id="cb69-2" data-line-number="2">    <span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">as</span>(<span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb69-4" data-line-number="4">    <span class="dt">index =</span> <span class="dv">1</span>)[<span class="dv">1</span>], <span class="dt">genome =</span> <span class="st">"Ath"</span>), <span class="st">"VRanges"</span>)[, <span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">as</span>(<span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="dt">genome =</span> <span class="st">"Ath"</span>), <span class="st">"VRanges"</span>)[, </a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">    <span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">as</span>(<span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">    <span class="dt">index =</span> <span class="dv">1</span>)[<span class="dv">1</span>], <span class="dt">genome =</span> <span class="st">"Ath"</span>), <span class="st">"VRanges"</span>)[, <span class="dv">1</span>])</a></code></pre></div>
 </div>
 </div>
 <div id="annotate-filtered-variants" class="section level1">
@@ -637,54 +565,54 @@ Figure 1: FASTQ quality report for 18 samples
 <h2 class="hasAnchor">
 <a href="#basics-of-annotating-variants" class="anchor"></a>Basics of annotating variants</h2>
 <p>Variants overlapping with common annotation features can be identified with <code>locateVariants</code>.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
-<a class="sourceLine" id="cb70-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb70-4" data-line-number="4">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb70-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb70-6" data-line-number="6">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
-<a class="sourceLine" id="cb70-7" data-line-number="7">vcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="st">"A. thaliana"</span>)</a>
-<a class="sourceLine" id="cb70-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/locateVariants-methods.html">locateVariants</a></span>(vcf, txdb, <span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/VariantType-class.html">CodingVariants</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">vcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/readVcf-methods.html">readVcf</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">infile1</a></span>(args)[<span class="dv">1</span>], <span class="st">"A. thaliana"</span>)</a>
+<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/locateVariants-methods.html">locateVariants</a></span>(vcf, txdb, <span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/VariantType-class.html">CodingVariants</a></span>())</a></code></pre></div>
 <p>Synonymous/non-synonymous variants of coding sequences are computed by the predictCoding function for variants overlapping with coding regions.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
-<a class="sourceLine" id="cb71-2" data-line-number="2">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
-<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/predictCoding-methods.html">predictCoding</a></span>(vcf, txdb, <span class="dt">seqSource =</span> fa)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/pkg/VariantAnnotation/man/predictCoding-methods.html">predictCoding</a></span>(vcf, txdb, <span class="dt">seqSource =</span> fa)</a></code></pre></div>
 </div>
 <div id="annotate-filtered-variants-gatk" class="section level2">
 <h2 class="hasAnchor">
 <a href="#annotate-filtered-variants-gatk" class="anchor"></a>Annotate filtered variants <code>GATK</code>
 </h2>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
-<a class="sourceLine" id="cb72-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb72-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb72-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb72-5" data-line-number="5">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
-<a class="sourceLine" id="cb72-6" data-line-number="6">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
-<a class="sourceLine" id="cb72-7" data-line-number="7">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
-<a class="sourceLine" id="cb72-8" data-line-number="8"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">variantReport</a></span>(<span class="dt">args =</span> args, <span class="dt">txdb =</span> txdb, <span class="dt">fa =</span> fa, </a>
-<a class="sourceLine" id="cb72-9" data-line-number="9">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
-<a class="sourceLine" id="cb72-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_report_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb72-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb72-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
+<a class="sourceLine" id="cb38-8" data-line-number="8"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">variantReport</a></span>(<span class="dt">args =</span> args, <span class="dt">txdb =</span> txdb, <span class="dt">fa =</span> fa, </a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
+<a class="sourceLine" id="cb38-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_report_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb38-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="annotate-filtered-variants-bcftools" class="section level2">
 <h2 class="hasAnchor">
 <a href="#annotate-filtered-variants-bcftools" class="anchor"></a>Annotate filtered variants <code>bcftools</code>
 </h2>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
-<a class="sourceLine" id="cb73-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb73-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb73-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb73-5" data-line-number="5">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
-<a class="sourceLine" id="cb73-6" data-line-number="6">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
-<a class="sourceLine" id="cb73-7" data-line-number="7">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
-<a class="sourceLine" id="cb73-8" data-line-number="8"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">variantReport</a></span>(<span class="dt">args =</span> args, <span class="dt">txdb =</span> txdb, <span class="dt">fa =</span> fa, </a>
-<a class="sourceLine" id="cb73-9" data-line-number="9">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
-<a class="sourceLine" id="cb73-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb73-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb73-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"GenomicFeatures"</span>)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_filter_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"annotate.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5">txdb &lt;-<span class="st"> </span><span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>)</a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">fa &lt;-<span class="st"> </span><span class="kw">FaFile</span>(<span class="kw"><a href="https://rdrr.io/r/base/normalizePath.html">normalizePath</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(args<span class="op">$</span>yamlinput<span class="op">$</span>data_path<span class="op">$</span>path, </a>
+<a class="sourceLine" id="cb39-7" data-line-number="7">    args<span class="op">$</span>yamlinput<span class="op">$</span>ref_name)))</a>
+<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="kw">suppressAll</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">variantReport</a></span>(<span class="dt">args =</span> args, <span class="dt">txdb =</span> txdb, <span class="dt">fa =</span> fa, </a>
+<a class="sourceLine" id="cb39-9" data-line-number="9">    <span class="dt">organism =</span> <span class="st">"A. thaliana"</span>))</a>
+<a class="sourceLine" id="cb39-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="dt">x =</span> args, <span class="dt">file =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb39-11" data-line-number="11">    <span class="dt">step =</span> <span class="dv">1</span>, <span class="dt">new_col =</span> <span class="st">"FileName1"</span>, <span class="dt">new_col_output_index =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb39-12" data-line-number="12">    <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>View annotation result for single sample</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[[<span class="dv">1</span>]][[<span class="dv">1</span>]])[<span class="dv">38</span><span class="op">:</span><span class="dv">40</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(args)[[<span class="dv">1</span>]][[<span class="dv">1</span>]])[<span class="dv">38</span><span class="op">:</span><span class="dv">40</span>, ]</a></code></pre></div>
 </div>
 </div>
 <div id="combine-annotation-results-among-samples" class="section level1">
@@ -695,24 +623,24 @@ Figure 1: FASTQ quality report for 18 samples
 <h2 class="hasAnchor">
 <a href="#combine-results-gatk" class="anchor"></a>Combine results <code>GATK</code>
 </h2>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb75-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb75-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb75-5" data-line-number="5">combineDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">combineVarReports</a></span>(args, <span class="dt">filtercol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">Consequence =</span> <span class="st">"nonsynonymous"</span>))</a>
-<a class="sourceLine" id="cb75-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(combineDF, <span class="st">"./results/combineDF_nonsyn_gatk.xls"</span>, </a>
-<a class="sourceLine" id="cb75-7" data-line-number="7">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">combineDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">combineVarReports</a></span>(args, <span class="dt">filtercol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">Consequence =</span> <span class="st">"nonsynonymous"</span>))</a>
+<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(combineDF, <span class="st">"./results/combineDF_nonsyn_gatk.xls"</span>, </a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
 </div>
 <div id="combine-results-bcftools" class="section level2">
 <h2 class="hasAnchor">
 <a href="#combine-results-bcftools" class="anchor"></a>Combine results <code>bcftools</code>
 </h2>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb76-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb76-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb76-4" data-line-number="4">combineDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">combineVarReports</a></span>(args, <span class="dt">filtercol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">Consequence =</span> <span class="st">"nonsynonymous"</span>))</a>
-<a class="sourceLine" id="cb76-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(combineDF, <span class="st">"./results/combineDF_nonsyn_bcf.xls"</span>, </a>
-<a class="sourceLine" id="cb76-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">combineDF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">combineVarReports</a></span>(args, <span class="dt">filtercol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">Consequence =</span> <span class="st">"nonsynonymous"</span>))</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(combineDF, <span class="st">"./results/combineDF_nonsyn_bcf.xls"</span>, </a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="summary-statistics-of-variants" class="section level1">
@@ -723,52 +651,52 @@ Figure 1: FASTQ quality report for 18 samples
 <h2 class="hasAnchor">
 <a href="#summary-of-variants-gatk" class="anchor"></a>Summary of variants <code>GATK</code>
 </h2>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb77-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb77-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args)</a>
-<a class="sourceLine" id="cb77-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args), <span class="st">"./results/variantStats_gatk.xls"</span>, </a>
-<a class="sourceLine" id="cb77-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">NA</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args)</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args), <span class="st">"./results/variantStats_gatk.xls"</span>, </a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">NA</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
 </div>
 <div id="summary-of-variants-bcf" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-variants-bcf" class="anchor"></a>Summary of variants <code>bcf</code>
 </h2>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb78-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb78-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb78-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args)</a>
-<a class="sourceLine" id="cb78-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args), <span class="st">"./results/variantStats_bcf.xls"</span>, </a>
-<a class="sourceLine" id="cb78-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">NA</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/variantReport.html">varSummary</a></span>(args), <span class="st">"./results/variantStats_bcf.xls"</span>, </a>
+<a class="sourceLine" id="cb44-6" data-line-number="6">    <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">NA</span>, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="venn-diagram-of-variants" class="section level1">
 <h1 class="hasAnchor">
 <a href="#venn-diagram-of-variants" class="anchor"></a>Venn diagram of variants</h1>
 <p>The venn diagram utilities defined by the <code>systemPipeR</code> package can be used to identify common and unique variants reported for different samples and/or variant callers. The below generates a 4-way venn diagram comparing four sampes for each of the two variant callers.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
-<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="co">## gatk</span></a>
-<a class="sourceLine" id="cb79-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_gatk.txt"</span>, </a>
-<a class="sourceLine" id="cb79-4" data-line-number="4">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb79-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb79-6" data-line-number="6">varlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">slot =</span> <span class="st">"output"</span>, </a>
-<a class="sourceLine" id="cb79-7" data-line-number="7">    <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)), <span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
-<a class="sourceLine" id="cb79-8" data-line-number="8">    <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)[x])<span class="op">$</span>VARID))</a>
-<a class="sourceLine" id="cb79-9" data-line-number="9">vennset_gatk &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/overLapper.html">overLapper</a></span>(varlist, <span class="dt">type =</span> <span class="st">"vennsets"</span>)</a>
-<a class="sourceLine" id="cb79-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb79-11" data-line-number="11"><span class="co">## bcf</span></a>
-<a class="sourceLine" id="cb79-12" data-line-number="12">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
-<a class="sourceLine" id="cb79-13" data-line-number="13">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
-<a class="sourceLine" id="cb79-14" data-line-number="14">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb79-15" data-line-number="15">varlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">slot =</span> <span class="st">"output"</span>, </a>
-<a class="sourceLine" id="cb79-16" data-line-number="16">    <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)), <span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
-<a class="sourceLine" id="cb79-17" data-line-number="17">    <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)[x])<span class="op">$</span>VARID))</a>
-<a class="sourceLine" id="cb79-18" data-line-number="18">vennset_bcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/overLapper.html">overLapper</a></span>(varlist, <span class="dt">type =</span> <span class="st">"vennsets"</span>)</a>
-<a class="sourceLine" id="cb79-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb79-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"./results/vennplot_var.pdf"</span>)</a>
-<a class="sourceLine" id="cb79-21" data-line-number="21"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/vennPlot.html">vennPlot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(vennset_gatk, vennset_bcf), <span class="dt">mymain =</span> <span class="st">""</span>, <span class="dt">mysub =</span> <span class="st">"GATK: red; BCFtools: blue"</span>, </a>
-<a class="sourceLine" id="cb79-22" data-line-number="22">    <span class="dt">colmode =</span> <span class="dv">2</span>, <span class="dt">ccol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</a>
-<a class="sourceLine" id="cb79-23" data-line-number="23"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">dir_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/cwl/varseq"</span>, <span class="dt">package =</span> <span class="st">"systemPipeR"</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="co">## gatk</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_report_gatk.txt"</span>, </a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">varlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">slot =</span> <span class="st">"output"</span>, </a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">    <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)), <span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">    <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)[x])<span class="op">$</span>VARID))</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">vennset_gatk &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/overLapper.html">overLapper</a></span>(varlist, <span class="dt">type =</span> <span class="st">"vennsets"</span>)</a>
+<a class="sourceLine" id="cb45-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb45-11" data-line-number="11"><span class="co">## bcf</span></a>
+<a class="sourceLine" id="cb45-12" data-line-number="12">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"./results/targets_report_bcf.txt"</span>, </a>
+<a class="sourceLine" id="cb45-13" data-line-number="13">    <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> dir_path)</a>
+<a class="sourceLine" id="cb45-14" data-line-number="14">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">FileName1 =</span> <span class="st">"_FILE1_"</span>, <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb45-15" data-line-number="15">varlist &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">slot =</span> <span class="st">"output"</span>, </a>
+<a class="sourceLine" id="cb45-16" data-line-number="16">    <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)), <span class="cf">function</span>(x) <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb45-17" data-line-number="17">    <span class="dt">slot =</span> <span class="st">"output"</span>, <span class="dt">subset =</span> <span class="dv">1</span>, <span class="dt">index =</span> <span class="dv">1</span>)[x])<span class="op">$</span>VARID))</a>
+<a class="sourceLine" id="cb45-18" data-line-number="18">vennset_bcf &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/overLapper.html">overLapper</a></span>(varlist, <span class="dt">type =</span> <span class="st">"vennsets"</span>)</a>
+<a class="sourceLine" id="cb45-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb45-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"./results/vennplot_var.pdf"</span>)</a>
+<a class="sourceLine" id="cb45-21" data-line-number="21"><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/vennPlot.html">vennPlot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(vennset_gatk, vennset_bcf), <span class="dt">mymain =</span> <span class="st">""</span>, <span class="dt">mysub =</span> <span class="st">"GATK: red; BCFtools: blue"</span>, </a>
+<a class="sourceLine" id="cb45-22" data-line-number="22">    <span class="dt">colmode =</span> <span class="dv">2</span>, <span class="dt">ccol =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</a>
+<a class="sourceLine" id="cb45-23" data-line-number="23"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
 <img src="results/vennplot_var.png"><div align="center">
 Figure 2: Venn Diagram for 4 samples from GATK and BCFtools
 </div>
@@ -779,28 +707,28 @@ Figure 2: Venn Diagram for 4 samples from GATK and BCFtools
 <a href="#plot-variants-programmatically" class="anchor"></a>Plot variants programmatically</h1>
 <p>The following plots a selected variant with <code>ggbio</code>.</p>
 <p>In this example, the input <code>BAM</code> file is from the <code>GATK</code> step 5, analysis ready bam. You can use other aligned <code>BAMs</code> as well, but make sure they are indexed. The <code>VCF</code> file is taken from <code>Inspect VCF file</code> section or you can load your own vcf.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggbio)</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2">mychr &lt;-<span class="st"> "ChrC"</span></a>
-<a class="sourceLine" id="cb80-3" data-line-number="3">mystart &lt;-<span class="st"> </span><span class="dv">11000</span></a>
-<a class="sourceLine" id="cb80-4" data-line-number="4">myend &lt;-<span class="st"> </span><span class="dv">13000</span></a>
-<a class="sourceLine" id="cb80-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_gatk.txt"</span>, <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, </a>
-<a class="sourceLine" id="cb80-6" data-line-number="6">    <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> <span class="st">"param/cwl/varseq_downstream/"</span>)</a>
-<a class="sourceLine" id="cb80-7" data-line-number="7">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">GATK_FIXED =</span> <span class="st">"_FILE1_"</span>, </a>
-<a class="sourceLine" id="cb80-8" data-line-number="8">    <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
-<a class="sourceLine" id="cb80-9" data-line-number="9">ga &lt;-<span class="st"> </span><span class="kw">readGAlignments</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"input"</span>, <span class="dt">subset =</span> <span class="dv">1</span>)[<span class="dv">1</span>], </a>
-<a class="sourceLine" id="cb80-10" data-line-number="10">    <span class="dt">use.names =</span> <span class="ot">TRUE</span>, <span class="dt">param =</span> <span class="kw">ScanBamParam</span>(<span class="dt">which =</span> <span class="kw">GRanges</span>(mychr, </a>
-<a class="sourceLine" id="cb80-11" data-line-number="11">        <span class="kw">IRanges</span>(mystart, myend))))</a>
-<a class="sourceLine" id="cb80-12" data-line-number="12">p1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(ga, <span class="dt">geom =</span> <span class="st">"rect"</span>)</a>
-<a class="sourceLine" id="cb80-13" data-line-number="13">p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(ga, <span class="dt">geom =</span> <span class="st">"line"</span>, <span class="dt">stat =</span> <span class="st">"coverage"</span>)</a>
-<a class="sourceLine" id="cb80-14" data-line-number="14">p3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(vcf[<span class="kw">seqnames</span>(vcf) <span class="op">==</span><span class="st"> </span>mychr], <span class="dt">type =</span> <span class="st">"fixed"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb80-15" data-line-number="15"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/tracks.html">xlim</a></span>(mystart, myend) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), </a>
-<a class="sourceLine" id="cb80-16" data-line-number="16">    <span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>())</a>
-<a class="sourceLine" id="cb80-17" data-line-number="17">p4 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(<span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>), <span class="dt">which =</span> <span class="kw">GRanges</span>(mychr, </a>
-<a class="sourceLine" id="cb80-18" data-line-number="18">    <span class="kw">IRanges</span>(mystart, myend)), <span class="dt">names.expr =</span> <span class="st">"gene_id"</span>)</a>
-<a class="sourceLine" id="cb80-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span>(<span class="st">"./results/plot_variant.png"</span>)</a>
-<a class="sourceLine" id="cb80-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/tracks.html">tracks</a></span>(<span class="dt">Reads =</span> p1, <span class="dt">Coverage =</span> p2, <span class="dt">Variant =</span> p3, <span class="dt">Transcripts =</span> p4, </a>
-<a class="sourceLine" id="cb80-21" data-line-number="21">    <span class="dt">heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.35</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">""</span>)</a>
-<a class="sourceLine" id="cb80-22" data-line-number="22"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggbio)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">mychr &lt;-<span class="st"> "ChrC"</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">mystart &lt;-<span class="st"> </span><span class="dv">11000</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">myend &lt;-<span class="st"> </span><span class="dv">13000</span></a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="dt">targets =</span> <span class="st">"results/targets_gatk.txt"</span>, <span class="dt">wf_file =</span> <span class="st">"combine.cwl"</span>, </a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">    <span class="dt">input_file =</span> <span class="st">"varseq.yml"</span>, <span class="dt">dir_path =</span> <span class="st">"param/cwl/varseq_downstream/"</span>)</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">args &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(args, <span class="dt">inputvars =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dt">GATK_FIXED =</span> <span class="st">"_FILE1_"</span>, </a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">    <span class="dt">SampleName =</span> <span class="st">"_SampleName_"</span>))</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9">ga &lt;-<span class="st"> </span><span class="kw">readGAlignments</span>(<span class="kw"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(args, <span class="dt">slot =</span> <span class="st">"input"</span>, <span class="dt">subset =</span> <span class="dv">1</span>)[<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb46-10" data-line-number="10">    <span class="dt">use.names =</span> <span class="ot">TRUE</span>, <span class="dt">param =</span> <span class="kw">ScanBamParam</span>(<span class="dt">which =</span> <span class="kw">GRanges</span>(mychr, </a>
+<a class="sourceLine" id="cb46-11" data-line-number="11">        <span class="kw">IRanges</span>(mystart, myend))))</a>
+<a class="sourceLine" id="cb46-12" data-line-number="12">p1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(ga, <span class="dt">geom =</span> <span class="st">"rect"</span>)</a>
+<a class="sourceLine" id="cb46-13" data-line-number="13">p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(ga, <span class="dt">geom =</span> <span class="st">"line"</span>, <span class="dt">stat =</span> <span class="st">"coverage"</span>)</a>
+<a class="sourceLine" id="cb46-14" data-line-number="14">p3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(vcf[<span class="kw">seqnames</span>(vcf) <span class="op">==</span><span class="st"> </span>mychr], <span class="dt">type =</span> <span class="st">"fixed"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/tracks.html">xlim</a></span>(mystart, myend) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">"none"</span>, <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), </a>
+<a class="sourceLine" id="cb46-16" data-line-number="16">    <span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>())</a>
+<a class="sourceLine" id="cb46-17" data-line-number="17">p4 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/autoplot-method.html">autoplot</a></span>(<span class="kw">loadDb</span>(<span class="st">"./data/tair10.sqlite"</span>), <span class="dt">which =</span> <span class="kw">GRanges</span>(mychr, </a>
+<a class="sourceLine" id="cb46-18" data-line-number="18">    <span class="kw">IRanges</span>(mystart, myend)), <span class="dt">names.expr =</span> <span class="st">"gene_id"</span>)</a>
+<a class="sourceLine" id="cb46-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span>(<span class="st">"./results/plot_variant.png"</span>)</a>
+<a class="sourceLine" id="cb46-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/pkg/ggbio/man/tracks.html">tracks</a></span>(<span class="dt">Reads =</span> p1, <span class="dt">Coverage =</span> p2, <span class="dt">Variant =</span> p3, <span class="dt">Transcripts =</span> p4, </a>
+<a class="sourceLine" id="cb46-21" data-line-number="21">    <span class="dt">heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.35</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">""</span>)</a>
+<a class="sourceLine" id="cb46-22" data-line-number="22"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
 <img src="results/plot_variant.png"><div align="center">
 Figure 3: Plot variants with programmatically.
 </div>
@@ -809,7 +737,7 @@ Figure 3: Plot variants with programmatically.
 <div id="version-information" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-information" class="anchor"></a>Version Information</h1>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
 <pre><code>## R Under development (unstable) (2019-12-19 r77606)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Pop!_OS 19.04
@@ -832,8 +760,8 @@ Figure 3: Plot variants with programmatically.
 ## 
 ## other attached packages:
 ##  [1] systemPipeR_1.21.2          ShortRead_1.45.3           
-##  [3] GenomicAlignments_1.23.1    SummarizedExperiment_1.17.1
-##  [5] DelayedArray_0.13.3         matrixStats_0.55.0         
+##  [3] GenomicAlignments_1.23.1    SummarizedExperiment_1.17.2
+##  [5] DelayedArray_0.13.4         matrixStats_0.55.0         
 ##  [7] Biobase_2.47.2              BiocParallel_1.21.2        
 ##  [9] Rsamtools_2.3.4             Biostrings_2.55.4          
 ## [11] XVector_0.27.0              GenomicRanges_1.39.2       
@@ -854,14 +782,14 @@ Figure 3: Plot variants with programmatically.
 ##  [19] compiler_4.0.0           httr_1.4.1              
 ##  [21] GOstats_2.53.0           backports_1.1.5         
 ##  [23] assertthat_0.2.1         Matrix_1.2-18           
-##  [25] lazyeval_0.2.2           limma_3.43.3            
+##  [25] lazyeval_0.2.2           limma_3.43.4            
 ##  [27] formatR_1.7              htmltools_0.4.0         
 ##  [29] prettyunits_1.1.1        tools_4.0.0             
 ##  [31] gtable_0.3.0             glue_1.3.1              
 ##  [33] GenomeInfoDbData_1.2.2   Category_2.53.1         
 ##  [35] dplyr_0.8.4              batchtools_0.9.12       
 ##  [37] rappdirs_0.3.1           Rcpp_1.0.3              
-##  [39] pkgdown_1.4.1            vctrs_0.2.2             
+##  [39] pkgdown_1.4.1            vctrs_0.2.3             
 ##  [41] debugme_1.1.0            rtracklayer_1.47.0      
 ##  [43] xfun_0.12                stringr_1.4.0           
 ##  [45] lifecycle_0.1.0          XML_3.99-0.3            
@@ -872,10 +800,10 @@ Figure 3: Plot variants with programmatically.
 ##  [55] RColorBrewer_1.1-2       yaml_2.2.1              
 ##  [57] curl_4.3                 memoise_1.1.0           
 ##  [59] ggplot2_3.2.1            biomaRt_2.43.3          
-##  [61] latticeExtra_0.6-29      stringi_1.4.5           
+##  [61] latticeExtra_0.6-29      stringi_1.4.6           
 ##  [63] RSQLite_2.2.0            genefilter_1.69.0       
 ##  [65] desc_1.2.0               checkmate_2.0.0         
-##  [67] GenomicFeatures_1.39.4   rlang_0.4.4             
+##  [67] GenomicFeatures_1.39.5   rlang_0.4.4             
 ##  [69] pkgconfig_2.0.3          bitops_1.0-6            
 ##  [71] evaluate_0.14            lattice_0.20-38         
 ##  [73] purrr_0.3.3              bit_1.1-15.2            
