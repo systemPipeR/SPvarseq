@@ -52,12 +52,6 @@
   </a>
 </li>
 <li>
-  <a></a>
-</li>
-<li>
-  <a href="../articles/systemPipeVARseq.html">Get started</a>
-</li>
-<li>
   <a href="../articles/systemPipeVARseq.html">
     <span class="fas fa fas fa-book"></span>
      
@@ -67,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tgirke/systemPipeR">
+  <a href="https://github.com/systemPipeR/systemPipeVARseq">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -94,7 +88,7 @@
       <h1 data-toc-skip>VAR-Seq Workflow Template</h1>
                         <h4 class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 class="date">Last update: 18 April, 2020</h4>
+            <h4 class="date">Last update: 29 April, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/systemPipeR/systemPipeVARseq/blob/master/vignettes/systemPipeVARseq.Rmd"><code>vignettes/systemPipeVARseq.Rmd</code></a></small>
       <div class="hidden name"><code>systemPipeVARseq.Rmd</code></div>
@@ -213,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="no">trim</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">trim</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName1</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">FileName2</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
 <span class="no">trim</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">trim</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">trim</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/preprocessReads.html">preprocessReads</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">trim</span>, <span class="kw">Fct</span> <span class="kw">=</span> <span class="st">"trimLRPatterns(Rpattern='GCCCGGGTAA', subject=fq)"</span>,
     <span class="kw">batchsize</span> <span class="kw">=</span> <span class="fl">1e+05</span>, <span class="kw">overwrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">compress</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
@@ -255,8 +249,8 @@ Figure 1: FASTQ quality report for 18 samples
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="kw">targets</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">wf_file</span> <span class="kw">=</span> <span class="st">"bwa-index.cwl"</span>,
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)  <span class="co"># shows the command</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)  <span class="co"># shows the expected output files</span>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)  <span class="co"># shows the command</span>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)  <span class="co"># shows the expected output files</span>
 <span class="co"># Run single Machine</span>
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
@@ -280,8 +274,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName1</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">FileName2</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
 <p>Runs the alignments sequentially (<em>e.g.</em> on a single machine) by <code>runCommandline</code> function.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>[<span class="fl">1</span>:<span class="fl">2</span>], <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targetsPE.txt"</span>,
@@ -339,8 +333,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName1</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">FileName2</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>[<span class="fl">1</span>:<span class="fl">2</span>], <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"GATK_UBAM"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -356,8 +350,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">BWA_SAM</span> <span class="kw">=</span> <span class="st">"_bwasam_"</span>, <span class="kw">GATK_UBAM</span> <span class="kw">=</span> <span class="st">"_ubam_"</span>,
     <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"GATK_MERGE"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -372,8 +366,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>,
     <span class="kw">GATK_MERGE</span> <span class="kw">=</span> <span class="st">"_mergebam_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"GATK_SORT"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -388,8 +382,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>,
     <span class="kw">GATK_SORT</span> <span class="kw">=</span> <span class="st">"_sort_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GATK_MARK"</span>, <span class="st">"GATK_MARK_METRICS"</span>),
@@ -404,8 +398,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>,
     <span class="kw">GATK_MARK</span> <span class="kw">=</span> <span class="st">"_mark_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"GATK_FIXED"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -422,8 +416,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>,
     <span class="kw">GATK_FIXED</span> <span class="kw">=</span> <span class="st">"_fixed_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"GVCF"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">overwrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
@@ -438,8 +432,8 @@ Figure 1: FASTQ quality report for 18 samples
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="kw">targets</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">wf_file</span> <span class="kw">=</span> <span class="st">"gatk_genomicsDBImport.cwl"</span>,
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 </div>
 <div id="step8-cohort-calling-of-gvcf" class="section level3">
@@ -450,8 +444,8 @@ Figure 1: FASTQ quality report for 18 samples
 <div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="kw">targets</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">wf_file</span> <span class="kw">=</span> <span class="st">"gatk_genotypeGVCFs.cwl"</span>,
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 </div>
 <div id="step9-cohort-hard-filter-variants" class="section level3">
@@ -461,8 +455,8 @@ Figure 1: FASTQ quality report for 18 samples
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="kw">wf_file</span> <span class="kw">=</span> <span class="st">"gatk_variantFiltration.cwl"</span>,
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 </div>
 <div id="step10-extract-variant" class="section level3">
@@ -473,8 +467,8 @@ Figure 1: FASTQ quality report for 18 samples
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span>(<span class="kw">targets</span> <span class="kw">=</span> <span class="no">targets.gatk</span>, <span class="kw">wf_file</span> <span class="kw">=</span> <span class="st">"gatk_select_variant.cwl"</span>,
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"gatk.yaml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_gatk.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"FileName1"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -492,8 +486,8 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"bcftools.yml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>,
     <span class="kw">BWA_SAM</span> <span class="kw">=</span> <span class="st">"_SAM_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>[<span class="fl">1</span>])
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>[<span class="fl">1</span>])
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>[<span class="fl">1</span>])
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>[<span class="fl">1</span>])
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsout.html">writeTargetsout</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">args</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"./results/targets_bcf.txt"</span>,
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"FileName1"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
@@ -618,7 +612,7 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">step</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">new_col</span> <span class="kw">=</span> <span class="st">"FileName1"</span>, <span class="kw">new_col_output_index</span> <span class="kw">=</span> <span class="fl">1</span>,
     <span class="kw">overwrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>View annotation result for single sample</p>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)<span class="kw">[[</span><span class="fl">1</span>]]<span class="kw">[[</span><span class="fl">1</span>]])[<span class="fl">38</span>:<span class="fl">40</span>, ]</pre></body></html></div>
+<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)<span class="kw">[[</span><span class="fl">1</span>]]<span class="kw">[[</span><span class="fl">1</span>]])[<span class="fl">38</span>:<span class="fl">40</span>, ]</pre></body></html></div>
 </div>
 </div>
 <div id="combine-annotation-results-among-samples" class="section level1">
