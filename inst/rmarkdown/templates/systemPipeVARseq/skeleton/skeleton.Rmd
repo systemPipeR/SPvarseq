@@ -1,18 +1,25 @@
 ---
-title: "RNA-Seq Workflow Template"
-author: 'Author: Daniela Cassol (danielac@ucr.edu) and Thomas Girke (thomas.girke@ucr.edu)'
-date: 
+title: "VAR-Seq Workflow Template" 
+author: "Author: Daniela Cassol (danielac@ucr.edu) and Thomas Girke (thomas.girke@ucr.edu)"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 output:
-  BiocStyle::html_document: default
-  md_document: default
-fontsize: 14pt
+  BiocStyle::html_document:
+    toc_float: true
+    code_folding: show
 package: systemPipeR
-bibliography: bibtex.bib
 vignette: |
-  %\VignetteIndexEntry{RNA-Seq Workflow Template}
   %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{WF: VAR-Seq Template}
   %\VignetteEngine{knitr::rmarkdown}
+fontsize: 14pt
+bibliography: bibtex.bib
 ---
+
+<!--
+# Compile from command-line
+Rscript -e "rmarkdown::render('systemPipeVARseq.Rmd', c('BiocStyle::html_document'), clean=FALSE); knitr::knit('systemPipeVARseq.Rmd', tangle=TRUE)"; Rscript -e "rmarkdown::render('systemPipeVARseq.Rmd', c('BiocStyle::pdf_document'))"
+-->
+
 
 ```{css, echo=FALSE}
 pre code {
@@ -23,11 +30,6 @@ word-wrap: initial !important;
 }
 ```
 
-<!--
-- Compile from command-line
-Rscript -e "rmarkdown::render('systemPipeRNAseq.Rmd', c('BiocStyle::html_document'), clean=F); knitr::knit('systemPipeRNAseq.Rmd', tangle=TRUE)"; Rscript ../md2jekyll.R systemPipeRNAseq.knit.md 12; Rscript -e "rmarkdown::render('systemPipeRNAseq.Rmd', c('BiocStyle::pdf_document'))"
--->
-
 ```{r style, echo = FALSE, results = 'asis'}
 BiocStyle::markdown()
 options(width=60, max.print=1000)
@@ -37,7 +39,7 @@ knitr::opts_chunk$set(
     tidy.opts=list(width.cutoff=60), tidy=TRUE)
 ```
 
-```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 suppressPackageStartupMessages({
     library(systemPipeR)
     library(BiocParallel)
@@ -54,127 +56,104 @@ suppressPackageStartupMessages({
 
 # Introduction
 
-Users want to provide here background information about the design of their RNA-Seq project.
+Users want to provide here background information about the design of their VAR-Seq project.
 
-# Samples and environment settings
+## Background and objectives
 
-## Environment settings and input data
+This report describes the analysis of a VAR-Seq project studying the
+genetic differences among several strains ... from *organism* ....
 
-Typically, the user wants to record here the sources and versions of the
-reference genome sequence along with the corresponding annotations. In
-the provided sample data set all data inputs are stored in a `data`
-subdirectory and all results will be written to a separate `results` directory,
-while the `systemPipeRNAseq.Rmd` script and the `targets` file are expected to be located in the parent directory. The R session is expected to run from this parent directory.
+## Experimental design
 
-To run this sample report, mini sample FASTQ and reference genome files
-can be downloaded from
-[here](http://biocluster.ucr.edu/~tgirke/projects/systemPipeR_test_data.zip).
-The chosen data set [SRP010938](http://www.ncbi.nlm.nih.gov/sra/?term=SRP010938)
-contains 18 paired-end (PE) read sets from *Arabidposis thaliana*
-[@Howard2013-fq]. To minimize processing time during testing, each FASTQ
-file has been subsetted to 90,000-100,000 randomly sampled PE reads that
-map to the first 100,000 nucleotides of each chromosome of the *A.
-thalina* genome. The corresponding reference genome sequence (FASTA) and
-its GFF annotation files (provided in the same download) have been
-truncated accordingly. This way the entire test sample data set is less
-than 200MB in storage space. A PE read set has been chosen for this test
-data set for flexibility, because it can be used for testing both types
-of analysis routines requiring either SE (single end) reads or PE reads.
+Typically, users want to specify here all information relevant for the
+analysis of their NGS study. This includes detailed descriptions of
+FASTQ files, experimental design, reference genome, gene annotations,
+etc.
 
-Instructions for loading the demo data available for NGS workflow templates 
-into the user's current working directory can be found here. At the moment, the package includes
-workflow templates for RNA-Seq, ChIP-Seq, VAR-Seq and Ribo-Seq. Templates for
-additional NGS applications will be provided in the future.
+# Workflow environment
 
-Alternatively, this can be done from the command-line as find here. 
+## Generate workflow environment
 
-Now open the R markdown script `systemPipeRNAseq.Rmd`in your R IDE (_e.g._
-vim-r or RStudio) and run the workflow as outlined below. If you work under
-Vim-R-Tmux, the following command sequence will connect the user in an
-interactive session with a node on the cluster [TODO: fix, point to the main vignette]. 
-The code of the `Rmd`script can then be sent from Vim on the login (head) node to an open R session running
-on the corresponding computer node. This is important since Tmux sessions
-should not be run on the computer nodes. 
+[*systemPipeRdata*](http://bioconductor.org/packages/release/data/experiment/html/systemPipeRdata.html) package is a helper package to generate a fully populated [*systemPipeR*](http://bioconductor.org/packages/release/bioc/html/systemPipeR.html)
+workflow environment in the current working directory with a single command. 
+All the instruction for generating the workflow template are provide in the *systemPipeRdata* vignette [here](http://www.bioconductor.org/packages/devel/data/experiment/vignettes/systemPipeRdata/inst/doc/systemPipeRdata.html#1_Introduction). 
 
-Now check whether your R session is running on a computer node of the cluster and not on a head node.
+After building and loading the workflow environment generated by `genWorkenvir` 
+from systemPipeRdata all data inputs are stored in
+a `data/` directory and all analysis results will be written to a separate
+`results/` directory, while the `systemPipeVARseq.Rmd` script and the `targets` file are expected to be located in the parent directory. The R session is expected to run from this parent
+directory. Additional parameter files are stored under `param/`.
 
-```{r r_environment, eval=FALSE}
-system("hostname") # should return name of a compute node starting with i or c 
-getwd() # checks current working directory of R session
-dir() # returns content of current working directory
-```
+To work with real data, users want to organize their own data similarly
+and substitute all test data for their own data. To rerun an established
+workflow on new data, the initial `targets` file along with the corresponding
+FASTQ files are usually the only inputs the user needs to provide.
 
-## Required packages and resources
+For more details, please consult the documentation 
+[here](http://www.bioconductor.org/packages/release/bioc/vignettes/systemPipeR/inst/doc/systemPipeR.html). More information about the `targets` files from *systemPipeR* can be found [here](http://www.bioconductor.org/packages/release/bioc/vignettes/systemPipeR/inst/doc/systemPipeR.html#25_structure_of_targets_file). 
+
+## Run workflow
+
+Now open the R markdown script `systemPipeVARseq.Rmd`in your R IDE (_e.g._ vim-r or RStudio) and 
+run the workflow as outlined below. 
+
+Here pair-end workflow example is provided. Please refer to the main vignette 
+`systemPipeR.Rmd` for running the workflow with single-end data. 
 
 The `systemPipeR` package needs to be loaded to perform the analysis steps shown in
 this report [@H_Backman2016-bt].
 
-```{r load_systempiper, eval=TRUE,  messages=FALSE}
+```{r load_systempiper, eval=TRUE, message=FALSE, warning=FALSE}
 library(systemPipeR)
 ```
 
-If applicable load custom functions not provided by `systemPipeR` package.
-
-To apply workflows to custom data, the user needs to modify the _`targets`_ file and if
-necessary update the corresponding _`.cwl`_ and _`.yml`_ files. A collection of pre-generated _`.cwl`_ and _`.yml`_ files are provided in the _`param/cwl`_ subdirectory of each workflow template. They
-are also viewable in the GitHub repository of _`systemPipeRdata`_ ([see
-here](https://github.com/tgirke/systemPipeRdata/tree/master/inst/extdata/param)).
-
-## Experiment definition provided by `targets` file
-
-The `targets` file defines all FASTQ files and sample
-comparisons of the analysis workflow.
-
-```{r load_targets, eval=TRUE}
-targetspath <- system.file("extdata", "targets.txt", package="systemPipeR")
-targets <- read.delim(targetspath, comment.char = "#")[,1:4]
-targets
-```
+If you are running on a single machine, use following code as an example to check 
+if some tools used in this workflow are in your environment **PATH**. No warning 
+message should be shown if all tools are installed.
 
 # Read preprocessing
 
-## Read quality filtering and trimming
+## Experiment definition provided by `targets` file
 
-The function `preprocessReads` allows to apply predefined or custom
-read preprocessing functions to all FASTQ files referenced in a
-`SYSargs2` container, such as quality filtering or adapter trimming
-routines. The paths to the resulting output FASTQ files are stored in the
-`output` slot of the `SYSargs2` object. The following example performs adapter trimming with
-the `trimLRPatterns` function from the `Biostrings` package.
-After the trimming step a new targets file is generated (here
-`targets_trim.txt`) containing the paths to the trimmed FASTQ files.
-The new targets file can be used for the next workflow step with an updated
-`SYSargs2` instance, _e.g._ running the NGS alignments using the
-trimmed FASTQ files.
+The `targets` file defines all FASTQ files and sample comparisons of the analysis workflow.
 
-Construct _`SYSargs2`_ object from _`cwl`_ and _`yml`_ param and _`targets`_ files.
-
-```{r construct_SYSargs2_trim-se, eval=FALSE}
-dir_path <- system.file("extdata/cwl/preprocessReads/trim-se", package="systemPipeR")
-trim <- loadWorkflow(targets=targetspath, wf_file="trim-se.cwl", input_file="trim-se.yml", dir_path=dir_path)
-trim <- renderWF(trim, inputvars=c(FileName="_FASTQ_PATH1_", SampleName="_SampleName_"))
-trim
-output(trim)[1:2]
+```{r load_targets_file, eval=TRUE}
+targetspath <- system.file("extdata", "targetsPE.txt", package="systemPipeR")
+targets <- read.delim(targetspath, comment.char = "#")
+targets[1:4, 1:4]
 ```
 
-```{r preprocessing, eval=FALSE}
-preprocessReads(args=trim, Fct="trimLRPatterns(Rpattern='GCCCGGGTAA', 
-                subject=fq)", batchsize=100000, overwrite=TRUE, compress=TRUE)
-writeTargetsout(x=trim, file="targets_trimPE.txt", step = 1, 
-                new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
+## Read quality filtering and trimming
+
+The following removes reads with low quality base calls (here a certain pattern) 
+from all FASTQ files. 
+
+```{r construct_SYSargs2_trim-pe, eval=FALSE}
+targetsPE <- system.file("extdata", "targetsPE.txt", package="systemPipeR")
+dir_path <- system.file("extdata/cwl/preprocessReads/trim-pe", package="systemPipeR")
+trim <- loadWorkflow(targets=targetsPE, wf_file="trim-pe.cwl", input_file="trim-pe.yml", dir_path=dir_path)
+trim <- renderWF(trim, inputvars=c(FileName1="_FASTQ_PATH1_", FileName2="_FASTQ_PATH2_", SampleName="_SampleName_"))
+trim
+output(trim)[1:2]
+
+preprocessReads(args=trim, Fct="trimLRPatterns(Rpattern='GCCCGGGTAA', subject=fq)",
+                batchsize=100000, overwrite=TRUE, compress=TRUE)
+writeTargetsout(x=trim, file="targets_trimPE.txt", step=1, new_col = c("FileName1", "FileName2"),
+                new_col_output_index = c(1,2), overwrite = TRUE)
 ```
 
 ## FASTQ quality report
 
-The following `seeFastq` and `seeFastqPlot` functions generate and plot a series of useful 
-quality statistics for a set of FASTQ files including per cycle quality box
+The following `seeFastq` and `seeFastqPlot` functions generate and plot a series of 
+useful quality statistics for a set of FASTQ files including per cycle quality box
 plots, base proportions, base-level quality trends, relative k-mer
 diversity, length and occurrence distribution of reads, number of reads
 above quality cutoffs and mean quality distribution. The results are
-written to a PDF file named `fastqReport.pdf`.
+written to a PDF file named `fastqReport.pdf`. Use the output from previous step 
+(fastq trimming) as the demonstration here to generate fastq report.
 
 ```{r fastq_report, eval=FALSE}
-fqlist <- seeFastq(fastq=infile1(trim), batchsize=10000, klength=8)
+fqlist <- seeFastq(fastq=infile1(trim), batchsize=100000, klength=8)
 pdf("./results/fastqReport.pdf", height=18, width=4*length(fqlist))
 seeFastqPlot(fqlist)
 dev.off()
@@ -185,101 +164,82 @@ dev.off()
 
 # Alignments
 
-## Read mapping with `Bowtie2/Tophat2` 
+## Read mapping with `BWA-MEM` 
 
-The NGS reads of this project will be aligned against the reference
-genome sequence using `Bowtie2/TopHat2` [@Kim2013-vg; @Langmead2012-bs] in both 
-interactive job submissions and batch submissions to queuing systems of clusters 
-using the _`systemPipeR's`_ new CWL command-line interface.
+The NGS reads of this project are aligned against the reference genome
+sequence using the highly variant tolerant short read aligner `BWA-MEM`
+[@Li2013-oy; @Li2009-oc]. The parameter settings of the aligner are
+defined in the `gatk/bwa-pe.cwl`
 
-Build _`Bowtie2`_ index.
+DNA sequencing nowadays are usually solid for base quality and therefore, 
+trimming is usually not needed in most cases. Also, variant calling tools like 
+`GATK` will automatically not consider low quality bases. Therefore, this test 
+code uses untrimmed fastqs. However, it is best to test with `FASTQ quality report` 
+function provided above to verify on your real data first.
 
-```{r bowtie_index, eval=FALSE}
-dir_path <- system.file("extdata/cwl/bowtie2/bowtie2-idx", package="systemPipeR")
-idx <- loadWorkflow(targets=NULL, wf_file="bowtie2-index.cwl", input_file="bowtie2-index.yml", dir_path=dir_path)
-idx <- renderWF(idx)
-idx
-cmdlist(idx)
+### Build index and dictionary files for BWA and GATK
 
-## Run in single machine
-runCommandline(idx, make_bam = FALSE)
+The following object `dir_path` is the folder where all `BWA` and `GATK` param files are located.
+
+```{r dir_path, eval=FALSE}
+dir_path <- system.file("extdata/cwl/gatk", package="systemPipeR")
 ```
 
-The parameter settings of the aligner are defined in the `tophat2-mapping-pe.cwl` 
-and `tophat2-mapping-pe.yml` files. The following shows how to construct the 
-corresponding *SYSargs2* object, here *args*.
+Build the index and dictionary files for BWA and GATK to run. 
 
-```{r tophat2-se, eval=FALSE}
-dir_path <- system.file("extdata/cwl/tophat2/tophat2-se", package="systemPipeR")
-args <- loadWorkflow(targets = targetspath, wf_file = "tophat2-mapping-se.cwl", 
-    input_file = "tophat2-mapping-se.yml", dir_path = dir_path)
-args <- renderWF(args, inputvars = c(FileName = "_FASTQ_PATH1_", SampleName = "_SampleName_"))
-args
+```{r index, eval=FALSE}
+## Index for BWA
+args <- loadWorkflow(targets = NULL, wf_file = "bwa-index.cwl", input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+cmdlist(args) # shows the command
+output(args) # shows the expected output files
+# Run single Machine
+runCommandline(args, make_bam = FALSE)
+
+## Index needed for gatk tools
+args <- loadWorkflow(wf_file = "fasta_dict.cwl", input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+args <- runCommandline(args, make_bam = FALSE)
+
+## Index
+args <- loadWorkflow(wf_file = "fasta_faidx.cwl", input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+args <- runCommandline(args, make_bam = FALSE)
+```
+
+### Run the read mapping
+
+```{r bwa-pe_alignment, eval=FALSE}
+targetsPE <- system.file("extdata", "targetsPE.txt", package = "systemPipeR")
+args <- loadWorkflow(targets = targetsPE, wf_file = "bwa-pe.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FASTQ_PATH1_", FileName2 = "_FASTQ_PATH2_", 
+                                     SampleName = "_SampleName_"))
 cmdlist(args)[1:2]
 output(args)[1:2]
-## Run in single machine
-args <- runCommandline(args, make_bam = TRUE)
 ```
 
-Submission of alignment jobs to compute cluster, here using 72 CPU cores
-(18 `qsub` processes each with 4 CPU cores).
+Runs the alignments sequentially (_e.g._ on a single machine) by `runCommandline` function.
 
-```{r tophat_se_run, eval=FALSE}
-## Run on the cluster
-moduleload(modules(args))
-resources <- list(walltime=120, ntasks=1, ncpus=4, memory=1024) 
-reg <- clusterRun(args, FUN = runCommandline, more.args = list(args=args, make_bam=TRUE, dir=FALSE), 
-                  conffile = ".batchtools.conf.R", template = "batchtools.slurm.tmpl", 
-                  Njobs=18, runid="01", resourceList=resources)
-waitForJobs(reg=reg)
+```{r start_BWA, eval=FALSE}
+args <- runCommandline(args = args, make_bam=FALSE)
+writeTargetsout(x = args[1:2], file = "./results/targetsPE.txt",
+                step = 1, new_col = "BWA_SAM", new_col_output_index = 1, overwrite = TRUE) 
 ```
 
-## Read mapping with `HISAT2`
+Alternatively, the alignment jobs can be submitted to a compute cluster. Here is the 
+example to run cluster jobs by `clusterRun` on a `slurm` based system. 4 cpus for 
+each task for 18 samples, totally 72 cpus.
 
-The following steps will demonstrate how to use the short read aligner `Hisat2`
-[@Kim2015-ve] in both interactive job submissions and batch submissions to
-queuing systems of clusters using the _`systemPipeR's`_ new CWL command-line interface.
-
-Build `Hisat2` index.
-
-```{r hisat_index, eval=FALSE}
-dir_path <- system.file("extdata/cwl/hisat2/hisat2-idx", package="systemPipeR")
-idx <- loadWorkflow(targets=NULL, wf_file="hisat2-index.cwl", input_file="hisat2-index.yml", dir_path=dir_path)
-idx <- renderWF(idx)
-idx
-cmdlist(idx)
-
-## Run 
-runCommandline(idx, make_bam = FALSE)
-```
-
-The parameter settings of the aligner are defined in the `hisat2-mapping-se.cwl` 
-and `hisat2-mapping-se.yml` files. The following shows how to construct the 
-corresponding *SYSargs2* object, here *args*.
-
-```{r hisat_SYSargs2_object, eval=FALSE}
-dir_path <- system.file("extdata/cwl/hisat2/hisat2-se", package="systemPipeR")
-args <- loadWorkflow(targets=targetspath, wf_file="hisat2-mapping-se.cwl", 
-                     input_file="hisat2-mapping-se.yml", dir_path=dir_path)
-args <- renderWF(args, inputvars=c(FileName="_FASTQ_PATH1_", SampleName="_SampleName_"))
-args
-cmdlist(args)[1:2]
-output(args)[1:2]
-
-## Runc single Machine
-args <- runCommandline(args)
-```
-
-```{r hisat2_clusterRun, eval=FALSE}
+```{r bwa_parallel, eval=FALSE}
 library(batchtools)
-resources <- list(walltime=120, ntasks=1, ncpus=4, memory=1024)
-reg <- clusterRun(args, FUN = runCommandline, more.args = list(args=args, make_bam=TRUE, dir=FALSE), 
-                  conffile = ".batchtools.conf.R", template = "batchtools.slurm.tmpl", 
-                  Njobs=18, runid="01", resourceList=resources)
-getStatus(reg=reg)
-waitForJobs(reg=reg)
-args <- output_update(args, dir=FALSE, replace=TRUE, extension=c(".sam", ".bam")) ## Updates the output(args) to the right location in the subfolders
-output(args)
+resources <- list(walltime = 120, ntasks = 1, ncpus = 4, memory = 1024)
+reg <- clusterRun(args, FUN = runCommandline, more.args = list(args = args, dir = FALSE, make_bam=FALSE), 
+    conffile = ".batchtools.conf.R", template = "batchtools.slurm.tmpl", Njobs = 18, 
+    runid = "01", resourceList = resources)
+getStatus(reg = reg)
+writeTargetsout(x = args, file = "./results/targetsPE.txt",
+                step = 1, new_col = "BWA_SAM", new_col_output_index = 1, overwrite = TRUE) 
 ```
 
 Check whether all BAM files have been created.
@@ -291,269 +251,521 @@ file.exists(outpaths)
 
 ## Read and alignment stats
 
-The following provides an overview of the number of reads in each sample
-and how many of them aligned to the reference.
+The following generates a summary table of the number of reads in each
+sample and how many of them aligned to the reference.
 
 ```{r align_stats, eval=FALSE}
 read_statsDF <- alignStats(args=args) 
 write.table(read_statsDF, "results/alignStats.xls", row.names=FALSE, quote=FALSE, sep="\t")
 ```
 
-The following shows the alignment statistics for a sample file provided by the `systemPipeR` package. 
-
-```{r align_stats_view, eval=TRUE}
-read.table(system.file("extdata", "alignStats.xls", package="systemPipeR"), header=TRUE)[1:4,]
-```
-
 ## Create symbolic links for viewing BAM files in IGV
 
 The `symLink2bam` function creates symbolic links to view the BAM alignment files in a
 genome browser such as IGV. The corresponding URLs are written to a file
-with a path specified under `urlfile` in the `results` directory.
+with a path specified under `urlfile`, here `IGVurl.txt`.
 
-```{r bam_urls, eval=FALSE}
+```{r symbolic_links, eval=FALSE}
 symLink2bam(sysargs=args, htmldir=c("~/.html/", "somedir/"), 
-            urlbase="http://biocluster.ucr.edu/~tgirke/", 
-	        urlfile="./results/IGVurl.txt")
+            urlbase="http://cluster.hpcc.ucr.edu/~tgirke/", urlfile="IGVurl.txt") 
 ```
 
-# Read quantification
+# Variant calling
 
-## Read counting with `summarizeOverlaps` in parallel mode using multiple cores
+The following performs variant calling with `GATK` and `BCFtools` on a single 
+machine by `runCommandline` function can be used to run the variant 
+calling with `GATK` and `BCFtools` for each sample sequentially. If a cluster 
+is available, running in parallel mode on a compute cluster can be performed by 
+`clusterRun` [@McKenna2010-ql; @Li2011-ll]. Typically, the user would choose here 
+only one variant caller rather than running several ones.
 
-Reads overlapping with annotation ranges of interest are counted for
-each sample using the `summarizeOverlaps` function [@Lawrence2013-kt]. The read counting is
-preformed for exonic gene regions in a non-strand-specific manner while
-ignoring overlaps among different genes. Subsequently, the expression
-count values are normalized by *reads per kp per million mapped reads*
-(RPKM). The raw read count table (`countDFeByg.xls`) and the corresponding 
-RPKM table (`rpkmDFeByg.xls`) are written to separate files in the directory of this project. Parallelization is achieved with the `BiocParallel` package, here using 8 CPU cores.
+Not all users have a cluster system, so here to demonstrate an example variant calling 
+workflow, only single-machine commands are shown. For cluster jobs, please refer 
+to previous steps like code for `BWA` as a template to run on the cluster. 
 
-```{r read_counting1, eval=FALSE}
-library("GenomicFeatures"); library(BiocParallel)
-txdb <- makeTxDbFromGFF(file="data/tair10.gff", format="gff", dataSource="TAIR", organism="Arabidopsis thaliana")
-saveDb(txdb, file="./data/tair10.sqlite")
+## Variant calling with `GATK`
+
+The following steps are based on `GATK 4.1.1.0` [Best Practice](https://software.broadinstitute.org/gatk/best-practices/). 
+A `targets` file is needed to load samples to a `SYSargs2` intance. There are 10 
+individual steps where the user can choose where to jump in and where to skip. 
+All scripts are located at `param/cwl/gatk`. `BQSR` (Base Quality Score Recalibration) 
+and `VQSR` (Variant Quality Score Recalibration) are very specific 
+to a limited species like human, so this workflow does not support these steps. 
+
+### Step1: `fastq` to `ubam`
+
+Convert `fastq` files to `bam` files to prepare for the following step. It is very 
+important to specific your sequencing platform, default is `illumina`. User need 
+to change `gatk_fastq2ubam.cwl` if the platform is different. Platform information 
+is needed for the variant caller in later steps to correct calling parameters.
+
+```{r fastq2ubam, eval=FALSE}
+dir_path <- system.file("extdata/cwl/gatk", package="systemPipeR")   
+targets.gatk <- "./results/targetsPE.txt" ## targets generated from BWA
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_fastq2ubam.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FASTQ_PATH1_", FileName2 = "_FASTQ_PATH2_",
+                                     SampleName = "_SampleName_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args[1:2],  make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = "GATK_UBAM", new_col_output_index = 1, overwrite = TRUE) 
+```
+
+### Step2: Merge `bam` and `ubam`
+
+This step merges a `bam` and `ubam` and creates a third `bam` file that contains 
+alignment information and remaining information that was removed by the aligner like `BWA`. 
+The removed information is essential for variant statistics calculation. Previous steps are 
+recommended, but variant calling can still be performed without these steps.
+
+```{r merge_bam, eval=FALSE}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_mergebams.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(BWA_SAM = "_bwasam_", GATK_UBAM = "_ubam_",
+                                     SampleName = "_SampleName_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args,  make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = "GATK_MERGE", new_col_output_index = 1, overwrite = TRUE)
+```
+
+### Step3: Sort `bam` files by genomic coordinates
+
+Sort `bam` files by genomic coordinates.
+
+```{r sort, eval=FALSE}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_sort.cwl", 
+                     input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_", GATK_MERGE = "_mergebam_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args,  make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = "GATK_SORT", new_col_output_index = 1, overwrite = TRUE)
+```
+
+### Step4: Mark duplicates
+
+Mark PCR artifacts in sequencing. A `duplicate_metrics` file will also be produced 
+by this step, but will not be used for the next step. This file is just for the user 
+to check duplicates status summary.
+
+```{r mark_dup, eval=FALSE}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_markduplicates.cwl", 
+                     input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_", GATK_SORT = "_sort_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args,  make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = c("GATK_MARK", "GATK_MARK_METRICS"), 
+                new_col_output_index = c(1,2), overwrite = TRUE)
+```
+
+### Step5: Fixing tags
+
+Takes the `bam` from the last step and calculates the NM, MD, and UQ tags. 
+These tags are important for variant calling and filtering. 
+This step is recommended but can be skipped.  
+
+```{r fix_tag, eval=FALSE}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_fixtag.cwl",
+                     input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_", GATK_MARK = "_mark_"))
+cmdlist(args)[1:2]
+  output(args)[1:2]
+  args <- runCommandline(args= args,  make_bam=FALSE) 
+  writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                  step = 1, new_col = "GATK_FIXED", new_col_output_index = 1, overwrite = TRUE)
+  ```
+  
+  Up till this step, sample preprocess is done. All analysis ready `BAM` files and 
+  their index `.bai` files are created. Individual and cohort calling by 
+  `HaplotypeCaller` is performed from the next step.
+
+### Step6: HaplotypeCaller `gvcf`
+
+The `HaplotypeCaller` is running a **gvcf** mode in this step. G stands for 'genomic'. 
+The file not only contains variant sites information but also non-variant sites information; 
+thus, at the following step, the cohort caller can use this information to validate the true variants.
+
+```{r hc, eval=FALSE}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_haplotypecaller.cwl", 
+                     input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_", GATK_FIXED = "_fixed_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args,  make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = "GVCF", new_col_output_index = 1, overwrite = TRUE)
+```
+
+### Step7: Import all `gvcfs`
+
+It is recommended to import all **gvcfs** to a 
+[TileDB](https://github.com/Intel-HLS/GenomicsDB/wiki) database for fast cohort 
+variant calling at the following step. Note: if you are working with non-diploid data, 
+use `CombineGVCFs` function from `GATK` and change the `gvcf_db_folder` parameter 
+in `param/cwl/gatk/gatk.yaml` to be your combined **gvcf** file.
+
+```{r import, eval=FALSE}
+# drop all  *.g.vcf.gz files into results folder, make sure the tbi index is also there.
+args <- loadWorkflow(targets = NULL, wf_file = "gatk_genomicsDBImport.cwl", 
+                     input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+cmdlist(args)
+output(args)
+args <- runCommandline(args= args,  make_bam=FALSE) 
+```
+
+### Step8: Cohort calling of `gvcf`
+
+Assess variants by information from all gvcfs. A collective vcf called 
+`samples.vcf.gz` is created by default naming.
+
+```{r call_variants, eval=FALSE}
+args <- loadWorkflow(targets = NULL, wf_file = "gatk_genotypeGVCFs.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+cmdlist(args)
+output(args)
+args <- runCommandline(args= args,  make_bam=FALSE) 
+```
+
+### Step9: Cohort hard filter variants
+
+VQSR is not included in this workflow. Variants are hard filtered together.
+See this [Post](https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set) for parameters for hard filtering. Change these settings in `param/cwl/gak/gatk_variantFiltration.sh` if needed.
+
+```{r filter, eval=FALSE}
+args <- loadWorkflow(wf_file = "gatk_variantFiltration.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args)
+cmdlist(args)
+output(args)
+args <- runCommandline(args= args,  make_bam=FALSE) 
+```
+
+### Step10: Extract variant
+
+After cohort calling, filtering, all variants for all samples are stored in one big file. 
+Extract variants for each sample and save them separately (only variants that have 
+passed the filters are stored).
+
+```{r extract_single_vcf, eval=F}
+targets.gatk <- "./results/targets_gatk.txt"
+args <- loadWorkflow(targets = targets.gatk, wf_file = "gatk_select_variant.cwl", 
+                       input_file = "gatk.yaml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_"))
+cmdlist(args)[1:2]
+output(args)[1:2]
+args <- runCommandline(args= args, make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_gatk.txt",
+                step = 1, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
+```
+
+## Variant calling with `BCFtools`
+
+The following runs the variant calling with `BCFtools`. This tool takes `BWA` 
+aligned `BAM` files, sort, mark duplicates by `samtools` and finally call variants 
+by `BCFtools`. 
+
+```{r run_bcftools, eval=FALSE}
+dir_path <- system.file("extdata/cwl/workflow-bcftools", package="systemPipeR")
+targetsPE <- './results/targetsPE.txt'
+args <- loadWorkflow(targets = targetsPE, wf_file = "workflow_bcftools.cwl",
+                     input_file = "bcftools.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(SampleName = "_SampleName_", BWA_SAM = "_SAM_"))
+cmdlist(args[1])
+output(args[1])
+args <- runCommandline(args= args, make_bam=FALSE) 
+writeTargetsout(x = args, file = "./results/targets_bcf.txt",
+                step = 5, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
+```
+
+Variant calling ends here. Downstream analysis starts from the next section.
+
+## Inspect VCF file 
+
+Scripts of downstream analysis are stored in `param/cwl/varseq_downstream`
+```{r_vcf, eval=FALSE}
+dir_path <- system.file("extdata/cwl/varseq", package="systemPipeR")   
+```
+
+VCF files can be imported into R with the `readVcf` function. 
+Both `VCF` and `VRanges` objects provide convenient data structure for
+working with variant data (_e.g._ SNP quality filtering). 
+
+```{r inspect_vcf, eval=FALSE}
+library(VariantAnnotation)
+args <- loadWorkflow(targets = './results/targets_gatk.txt', wf_file = "filter.cwl",
+                     input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_"))
+vcf <- readVcf(infile1(args)[1], "A. thaliana")
+vcf
+vr <- as(vcf, "VRanges")
+vr
+```
+
+# Filter variants
+
+The function `filterVars` filters VCF files based on user definable
+quality parameters. It sequentially imports each VCF file into R, applies the
+filtering on an internally generated `VRanges` object and then writes
+the results to a new subsetted VCF file. The filter parameters are passed on to
+the corresponding argument as a character string. The function applies this
+filter to the internally generated `VRanges` object using the standard
+subsetting syntax for two dimensional objects such as: `vr[filter, ]`.
+The parameter files are stored under `param/cwl/varseq_downstream` as dummy cwl 
+files. Please do not run them in `cwltool`. 
+These files are used in the filtering steps, which helps to define the paths to 
+the input and output VCF files that are stored in `SYSargs2` instances.  
+
+## Filter variants called by `GATK` 
+
+The below example filters for variants that are supported by `>=x`
+reads and >=80% of them support the called variants. In addition, all
+variants need to pass `>=x` of the soft filters recorded in the VCF
+files generated by GATK. Since the toy data used for this workflow is
+very small, the chosen settings are unreasonabley relaxed. A more
+reasonable filter setting is given in the line below (here commented
+out).
+
+There is already some cohort filtering in GATK step 10. Some additional hard 
+filtering is provided here. Apply if you need or skip this step.
+
+```{r filter_gatk, eval=FALSE}
+dir_path <- system.file("extdata/cwl/varseq", package="systemPipeR")   
+library(VariantAnnotation)
+library(BBmisc) # Defines suppressAll()
+args <- loadWorkflow(targets = './results/targets_gatk.txt', 
+                     wf_file = "filter.cwl",input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName="_SampleName_"))
+filter <- "totalDepth(vr) >= 2 & (altDepth(vr) / totalDepth(vr) >= 0.8)"
+# filter <- "totalDepth(vr) >= 20 & (altDepth(vr) / totalDepth(vr) >= 0.8)"
+suppressAll(filterVars(args, filter, varcaller="gatk", organism="A. thaliana"))
+writeTargetsout(x = args, file = "./results/targets_filter_gatk.txt",
+                step = 1, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
+```
+
+## Filter variants called by `BCFtools`  
+
+The following shows how to filter the VCF files generated by `BCFtools` using
+similar parameter settings as in the previous filtering of the GATK
+results.
+
+```{r filter_bcftools, eval=FALSE}
+args <- loadWorkflow(targets = './results/targets_bcf.txt', 
+                     wf_file = "filter.cwl", 
+                     input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+filter <- "rowSums(vr) >= 2 & (rowSums(vr[,3:4])/rowSums(vr[,1:4]) >= 0.8)"
+# filter <- "rowSums(vr) >= 20 & (rowSums(vr[,3:4])/rowSums(vr[,1:4]) >= 0.8)"
+suppressAll(filterVars(args, filter, varcaller="bcftools", organism="A. thaliana"))
+writeTargetsout(x = args, file = "./results/targets_filter_bcf.txt",
+                step = 1, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
+```
+
+Check filtering outcome for one sample
+
+```{r check_filter, eval=FALSE}
+length(as(readVcf(infile1(args)[1], genome="Ath"), "VRanges")[,1])
+length(as(readVcf(subsetWF(args, slot='output', subset = 1, index=1)[1], genome="Ath"), "VRanges")[,1])
+```
+
+# Annotate filtered variants
+
+The function `variantReport` generates a variant report using
+utilities provided by the `VariantAnnotation` package. The report for
+each sample is written to a tabular file containing genomic context annotations
+(_e.g._ coding or non-coding SNPs, amino acid changes, IDs of affected
+genes, etc.) along with confidence statistics for each variant. The CWL
+file `param/cwl/varseq_downstream/annotate.cwl` defines the paths to the input 
+and output files which are stored in a `SYSargs2` instance. 
+
+## Basics of annotating variants
+
+Variants overlapping with common annotation features can be identified with `locateVariants`.
+```{r annotate_basics, eval=FALSE}
+dir_path <- system.file("extdata/cwl/varseq", package="systemPipeR")   
+library("GenomicFeatures")
+args <- loadWorkflow(targets = './results/targets_filter_gatk.txt', 
+                     wf_file = "annotate.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
 txdb <- loadDb("./data/tair10.sqlite")
-outpaths <- subsetWF(args, slot="output", subset=1, index=1)
-(align <- readGAlignments(outpaths[1])) # Demonstrates how to read bam file into R
-eByg <- exonsBy(txdb, by=c("gene"))
-bfl <- BamFileList(outpaths, yieldSize=50000, index=character())
-multicoreParam <- MulticoreParam(workers=2); register(multicoreParam); registered()
-counteByg <- bplapply(bfl, function(x) summarizeOverlaps(eByg, x, mode="Union", 
-                                               ignore.strand=TRUE, 
-                                               inter.feature=FALSE, 
-                                               singleEnd=TRUE)) 
-countDFeByg <- sapply(seq(along=counteByg), function(x) assays(counteByg[[x]])$counts)
-rownames(countDFeByg) <- names(rowRanges(counteByg[[1]])); colnames(countDFeByg) <- names(bfl)
-rpkmDFeByg <- apply(countDFeByg, 2, function(x) returnRPKM(counts=x, ranges=eByg))
-write.table(countDFeByg, "results/countDFeByg.xls", col.names=NA, quote=FALSE, sep="\t")
-write.table(rpkmDFeByg, "results/rpkmDFeByg.xls", col.names=NA, quote=FALSE, sep="\t")
+vcf <- readVcf(infile1(args)[1], "A. thaliana")
+locateVariants(vcf, txdb, CodingVariants())
 ```
 
-Sample of data slice of count table
+Synonymous/non-synonymous variants of coding sequences are computed by the predictCoding function for variants overlapping with coding regions.
 
-```{r view_counts, eval=FALSE}
-read.delim("results/countDFeByg.xls", row.names=1, check.names=FALSE)[1:4,1:5]
+```{r annotate_basics_non-synon, eval=FALSE}
+fa <- FaFile(normalizePath(file.path(args$yamlinput$data_path$path,args$yamlinput$ref_name)))
+predictCoding(vcf, txdb, seqSource=fa)
 ```
 
-Sample of data slice of RPKM table
+## Annotate filtered variants `GATK`
 
-```{r view_rpkm, eval=FALSE}
-read.delim("results/rpkmDFeByg.xls", row.names=1, check.names=FALSE)[1:4,1:4]
+```{r annotate_gatk, eval=FALSE}
+library("GenomicFeatures")
+args <- loadWorkflow(targets = './results/targets_filter_gatk.txt', 
+                     wf_file = "annotate.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+txdb <- loadDb("./data/tair10.sqlite")
+fa <- FaFile(normalizePath(file.path(args$yamlinput$data_path$path,args$yamlinput$ref_name)))
+suppressAll(variantReport(args=args, txdb=txdb, fa=fa, organism="A. thaliana"))
+writeTargetsout(x = args, file = "./results/targets_report_gatk.txt",
+                step = 1, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
 ```
 
-Note, for most statistical differential expression or abundance analysis
-methods, such as `edgeR` or `DESeq2`, the raw count values should be used as input. The
-usage of RPKM values should be restricted to specialty applications
-required by some users, *e.g.* manually comparing the expression levels
-among different genes or features.
+## Annotate filtered variants `bcftools`
 
-## Sample-wise correlation analysis
-
-The following computes the sample-wise Spearman correlation coefficients from
-the `rlog` transformed expression values generated with the `DESeq2` package. After
-transformation to a distance matrix, hierarchical clustering is performed with
-the `hclust` function and the result is plotted as a dendrogram
-(also see file `sample_tree.pdf`).
-
-```{r sample_tree, eval=FALSE}
-library(DESeq2, quietly=TRUE); library(ape,  warn.conflicts=FALSE)
-countDF <- as.matrix(read.table("./results/countDFeByg.xls"))
-colData <- data.frame(row.names=targets.as.df(targets(args))$SampleName, condition=targets.as.df(targets(args))$Factor)
-dds <- DESeqDataSetFromMatrix(countData = countDF, colData = colData, design = ~ condition)
-d <- cor(assay(rlog(dds)), method="spearman")
-hc <- hclust(dist(1-d))
-pdf("results/sample_tree.pdf")
-plot.phylo(as.phylo(hc), type="p", edge.col="blue", edge.width=2, show.node.label=TRUE, no.margin=TRUE)
-dev.off()
+```{r annotate_bcf, eval=FALSE}
+library("GenomicFeatures")
+args <- loadWorkflow(targets = './results/targets_filter_bcf.txt', 
+                     wf_file = "annotate.cwl", 
+                     input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+txdb <- loadDb("./data/tair10.sqlite")
+fa <- FaFile(normalizePath(file.path(args$yamlinput$data_path$path,args$yamlinput$ref_name)))
+suppressAll(variantReport(args=args, txdb=txdb, fa=fa, organism="A. thaliana"))
+writeTargetsout(x = args, file = "./results/targets_report_bcf.txt",
+                step = 1, new_col = "FileName1", new_col_output_index = 1, overwrite = TRUE)
 ```
 
-![](results/sample_tree.png)
-<div align="center">Figure 2: Correlation dendrogram of samples</div></br>
-
-# Analysis of DEGs
-
-The analysis of differentially expressed genes (DEGs) is performed with
-the glm method of the `edgeR` package [@Robinson2010-uk]. The sample
-comparisons used by this analysis are defined in the header lines of the 
-`targets.txt` file starting with `<CMP>`.
-
-## Run `edgeR`
-
-```{r run_edger, eval=FALSE}
-library(edgeR)
-countDF <- read.delim("results/countDFeByg.xls", row.names=1, check.names=FALSE) 
-targets <- read.delim("targets.txt", comment="#")
-cmp <- readComp(file="targets.txt", format="matrix", delim="-")
-edgeDF <- run_edgeR(countDF=countDF, targets=targets, cmp=cmp[[1]], independent=FALSE, mdsplot="")
+View annotation result for single sample
+```{r view_annotation, eval=FALSE}
+read.delim(output(args)[[1]][[1]])[38:40,]
 ```
 
-Add gene descriptions
+# Combine annotation results among samples
 
-```{r custom_annot, eval=FALSE}
-library("biomaRt")
-m <- useMart("plants_mart", dataset="athaliana_eg_gene", host="plants.ensembl.org")
-desc <- getBM(attributes=c("tair_locus", "description"), mart=m)
-desc <- desc[!duplicated(desc[,1]),]
-descv <- as.character(desc[,2]); names(descv) <- as.character(desc[,1])
-edgeDF <- data.frame(edgeDF, Desc=descv[rownames(edgeDF)], check.names=FALSE)
-write.table(edgeDF, "./results/edgeRglm_allcomp.xls", quote=FALSE, sep="\t", col.names = NA)
+To simplify comparisons among samples, the `combineVarReports`
+function combines all variant annotation reports referenced in a
+`SYSargs2` instance (here `args`). At the same time the function
+allows to consider only certain feature types of interest. For instance, the
+below setting `filtercol=c(Consequence="nonsynonymous")` will include
+only nonsysynonymous variances listed in the `Consequence` column of
+the annotation reports. To omit filtering, one can use the setting
+`filtercol="All"`.
+
+## Combine results `GATK`
+
+```{r combine_gatk, eval=FALSE}
+dir_path <- system.file("extdata/cwl/varseq", package="systemPipeR")   
+args <- loadWorkflow(targets = 'results/targets_report_gatk.txt', 
+                     wf_file = "combine.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+combineDF <- combineVarReports(args, filtercol=c(Consequence="nonsynonymous"))
+write.table(combineDF, "./results/combineDF_nonsyn_gatk.xls", quote=FALSE, row.names=FALSE, sep="\t")
 ```
 
-## Plot DEG results
+## Combine results  `bcftools`
 
-Filter and plot DEG results for up and down regulated genes. The
-definition of *up* and *down* is given in the corresponding help
-file. To open it, type `?filterDEGs` in the R console.
-
-```{r filter_degs, eval=FALSE}
-edgeDF <- read.delim("results/edgeRglm_allcomp.xls", row.names=1, check.names=FALSE) 
-pdf("results/DEGcounts.pdf")
-DEG_list <- filterDEGs(degDF=edgeDF, filter=c(Fold=2, FDR=20))
-dev.off()
-write.table(DEG_list$Summary, "./results/DEGcounts.xls", quote=FALSE, sep="\t", row.names=FALSE)
+```{r combine_bcf, eval=FALSE}
+args <- loadWorkflow(targets = 'results/targets_report_bcf.txt', 
+                     wf_file = "combine.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+combineDF <- combineVarReports(args, filtercol=c(Consequence="nonsynonymous"))
+write.table(combineDF, "./results/combineDF_nonsyn_bcf.xls", quote=FALSE, row.names=FALSE, sep="\t")
 ```
 
-![](results/DEGcounts.png)
-<div align="center">Figure 3: Up and down regulated DEGs with FDR of 1%</div></br>
+# Summary statistics of variants
 
-## Venn diagrams of DEG sets
+The `varSummary` function counts the number of variants for each feature type
+included in the anntation reports.
 
-The `overLapper` function can compute Venn intersects for large numbers of sample
-sets (up to 20 or more) and plots 2-5 way Venn diagrams. A useful
-feature is the possibility to combine the counts from several Venn
-comparisons with the same number of sample sets in a single Venn diagram
-(here for 4 up and down DEG sets).
+## Summary of variants `GATK`
+
+```{r summary_gatk, eval=FALSE}
+args <- loadWorkflow(targets = './results/targets_report_gatk.txt', 
+                     wf_file = "combine.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+varSummary(args)
+write.table(varSummary(args), "./results/variantStats_gatk.xls", quote=FALSE, col.names = NA, sep="\t")
+```
+
+## Summary of variants `bcf`
+
+```{r summary_bcf, eval=FALSE}
+args <- loadWorkflow(targets = './results/targets_report_bcf.txt', 
+                     wf_file = "combine.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+varSummary(args)
+write.table(varSummary(args), "./results/variantStats_bcf.xls", quote=FALSE, col.names = NA, sep="\t")
+```
+
+# Venn diagram of variants
+
+The venn diagram utilities defined by the `systemPipeR` package can be used to
+identify common and unique variants reported for different samples
+and/or variant callers. The below generates a 4-way venn diagram
+comparing four sampes for each of the two variant callers.
 
 ```{r venn_diagram, eval=FALSE}
-vennsetup <- overLapper(DEG_list$Up[6:9], type="vennsets")
-vennsetdown <- overLapper(DEG_list$Down[6:9], type="vennsets")
-pdf("results/vennplot.pdf")
-vennPlot(list(vennsetup, vennsetdown), mymain="", mysub="", colmode=2, ccol=c("blue", "red"))
+dir_path <- system.file("extdata/cwl/varseq", package="systemPipeR")   
+## gatk
+args <- loadWorkflow(targets = 'results/targets_report_gatk.txt', 
+                     wf_file = "combine.cwl",  input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+varlist <- sapply(names(subsetWF(args[1:2], slot='output', subset = 1, index=1)),
+                  function(x) as.character(read.delim(subsetWF(args[1:2], slot='output', subset = 1, index=1)[x])$VARID))
+vennset_gatk <- overLapper(varlist, type="vennsets")
+
+## bcf
+args <- loadWorkflow(targets = './results/targets_report_bcf.txt', 
+                     wf_file = "combine.cwl", input_file = "varseq.yml", dir_path = dir_path)
+args <- renderWF(args, inputvars = c(FileName1 = "_FILE1_", SampleName = '_SampleName_'))
+varlist <- sapply(names(subsetWF(args[1:2], slot='output', subset=1, index=1)),
+                  function(x) as.character(read.delim(subsetWF(args[1:2], slot='output', subset=1, index=1)[x])$VARID))
+vennset_bcf <- overLapper(varlist, type="vennsets")
+
+pdf("./results/vennplot_var.pdf")
+vennPlot(list(vennset_gatk, vennset_bcf), mymain="", mysub="GATK: red; BCFtools: blue", colmode=2, ccol=c("red", "blue"))
 dev.off()
 ```
 
-![](results/vennplot.png)
-<div align="center">Figure 4: Venn Diagram for 4 Up and Down DEG Sets</div></br>
+![](results/vennplot_var.png)
+<div align="center">Figure 2: Venn Diagram for 4 samples from GATK and BCFtools</div></br>
 
-# GO term enrichment analysis
 
-## Obtain gene-to-GO mappings
+# Plot variants programmatically 
 
-The following shows how to obtain gene-to-GO mappings from `biomaRt` (here for *A.
-thaliana*) and how to organize them for the downstream GO term
-enrichment analysis. Alternatively, the gene-to-GO mappings can be
-obtained for many organisms from Bioconductor’s `*.db` genome annotation
-packages or GO annotation files provided by various genome databases.
-For each annotation this relatively slow preprocessing step needs to be
-performed only once. Subsequently, the preprocessed data can be loaded
-with the `load` function as shown in the next subsection.
+The following plots a selected variant with `ggbio`.
 
-```{r get_go_annot, eval=FALSE}
-library("biomaRt")
-listMarts() # To choose BioMart database
-listMarts(host="plants.ensembl.org")
-m <- useMart("plants_mart", host="plants.ensembl.org")
-listDatasets(m)
-m <- useMart("plants_mart", dataset="athaliana_eg_gene", host="plants.ensembl.org")
-listAttributes(m) # Choose data types you want to download
-go <- getBM(attributes=c("go_id", "tair_locus", "namespace_1003"), mart=m)
-go <- go[go[,3]!="",]; go[,3] <- as.character(go[,3])
-go[go[,3]=="molecular_function", 3] <- "F"; go[go[,3]=="biological_process", 3] <- "P"; go[go[,3]=="cellular_component", 3] <- "C"
-go[1:4,]
-dir.create("./data/GO")
-write.table(go, "data/GO/GOannotationsBiomart_mod.txt", quote=FALSE, row.names=FALSE, col.names=FALSE, sep="\t")
-catdb <- makeCATdb(myfile="data/GO/GOannotationsBiomart_mod.txt", lib=NULL, org="", colno=c(1,2,3), idconv=NULL)
-save(catdb, file="data/GO/catdb.RData")
-```
+In this example, the input `BAM` file is from the `GATK` step 5, analysis ready bam. 
+You can use other aligned `BAMs` as well, but make sure they are indexed. The `VCF` 
+file is taken from `Inspect VCF file ` section or you can load your own vcf.
 
-## Batch GO term enrichment analysis
-
-Apply the enrichment analysis to the DEG sets obtained the above differential
-expression analysis. Note, in the following example the `FDR` filter is set
-here to an unreasonably high value, simply because of the small size of the toy
-data set used in this vignette. Batch enrichment analysis of many gene sets is
-performed with the function. When `method=all`, it returns all GO terms passing
-the p-value cutoff specified under the `cutoff` arguments. When `method=slim`,
-it returns only the GO terms specified under the `myslimv` argument. The given
-example shows how a GO slim vector for a specific organism can be obtained from
-BioMart.
-
-```{r go_enrich, eval=FALSE}
-library("biomaRt")
-load("data/GO/catdb.RData")
-DEG_list <- filterDEGs(degDF=edgeDF, filter=c(Fold=2, FDR=50), plot=FALSE)
-up_down <- DEG_list$UporDown; names(up_down) <- paste(names(up_down), "_up_down", sep="")
-up <- DEG_list$Up; names(up) <- paste(names(up), "_up", sep="")
-down <- DEG_list$Down; names(down) <- paste(names(down), "_down", sep="")
-DEGlist <- c(up_down, up, down)
-DEGlist <- DEGlist[sapply(DEGlist, length) > 0]
-BatchResult <- GOCluster_Report(catdb=catdb, setlist=DEGlist, method="all", id_type="gene", CLSZ=2, cutoff=0.9, gocats=c("MF", "BP", "CC"), recordSpecGO=NULL)
-library("biomaRt")
-m <- useMart("plants_mart", dataset="athaliana_eg_gene", host="plants.ensembl.org")
-goslimvec <- as.character(getBM(attributes=c("goslim_goa_accession"), mart=m)[,1])
-BatchResultslim <- GOCluster_Report(catdb=catdb, setlist=DEGlist, method="slim", id_type="gene", myslimv=goslimvec, CLSZ=10, cutoff=0.01, gocats=c("MF", "BP", "CC"), recordSpecGO=NULL)
-```
-
-## Plot batch GO term results
-
-The `data.frame` generated by `GOCluster` can be plotted with the `goBarplot` function. Because of the
-variable size of the sample sets, it may not always be desirable to show
-the results from different DEG sets in the same bar plot. Plotting
-single sample sets is achieved by subsetting the input data frame as
-shown in the first line of the following example.
-
-```{r go_plot, eval=FALSE}
-gos <- BatchResultslim[grep("M6-V6_up_down", BatchResultslim$CLID), ]
-gos <- BatchResultslim
-pdf("GOslimbarplotMF.pdf", height=8, width=10)
-goBarplot(gos, gocat="MF")
-dev.off()
-goBarplot(gos, gocat="BP")
-goBarplot(gos, gocat="CC")
-```
-
-![](results/GOslimbarplotMF.png)
-<div align="center">Figure 5: GO Slim Barplot for MF Ontology</div></br>
-
-# Clustering and heat maps
-
-The following example performs hierarchical clustering on the `rlog`
-transformed expression matrix subsetted by the DEGs identified in the above
-differential expression analysis. It uses a Pearson correlation-based distance
-measure and complete linkage for cluster joining.
-
-```{r heatmap, eval=FALSE}
-library(pheatmap)
-geneids <- unique(as.character(unlist(DEG_list[[1]])))
-y <- assay(rlog(dds))[geneids, ]
-pdf("heatmap1.pdf")
-pheatmap(y, scale="row", clustering_distance_rows="correlation", clustering_distance_cols="correlation")
+```{r plot_variant, eval=FALSE}
+library(ggbio)
+mychr <- "ChrC"; mystart <- 11000; myend <- 13000
+args <- loadWorkflow(targets = 'results/targets_gatk.txt', wf_file = "combine.cwl", 
+                       input_file = "varseq.yml", dir_path = 'param/cwl/varseq_downstream/')
+args <- renderWF(args, inputvars = c(GATK_FIXED = "_FILE1_", SampleName = "_SampleName_"))
+ga <- readGAlignments(subsetWF(args, slot='input', subset = 1)[1], use.names=TRUE,
+                      param=ScanBamParam(which=GRanges(mychr, IRanges(mystart, myend))))
+p1 <- autoplot(ga, geom = "rect")
+p2 <- autoplot(ga, geom = "line", stat = "coverage")
+p3 <- autoplot(vcf[seqnames(vcf)==mychr], type = "fixed") + 
+                xlim(mystart, myend) + theme(legend.position = "none", 
+                    axis.text.y = element_blank(), axis.ticks.y=element_blank())
+p4 <- autoplot(loadDb("./data/tair10.sqlite"), which=GRanges(mychr, IRanges(mystart, myend)), names.expr = "gene_id")
+png("./results/plot_variant.png")
+tracks(Reads=p1, Coverage=p2, Variant=p3, Transcripts=p4, heights = c(0.3, 0.2, 0.1, 0.35)) + ylab("")
 dev.off()
 ```
 
-![](results/heatmap1.png)
-<div align="center">Figure 6: Heat Map with Hierarchical Clustering Dendrograms of DEGs</div></br>
+![](results/plot_variant.png)
+<div align="center">Figure 3: Plot variants with programmatically.</div></br>
 
 # Version Information
 
@@ -563,6 +775,7 @@ sessionInfo()
 
 # Funding
 
-This project was supported by funds from the National Institutes of Health (NIH).
+This project was supported by funds from the National Institutes of
+Health (NIH) and the National Science Foundation (NSF).
 
 # References
