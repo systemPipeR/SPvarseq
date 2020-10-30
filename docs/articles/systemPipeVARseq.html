@@ -82,13 +82,14 @@
 
       
 
-      </header><script src="systemPipeVARseq_files/header-attrs-2.4/header-attrs.js"></script><script src="systemPipeVARseq_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="systemPipeVARseq_files/header-attrs-2.5/header-attrs.js"></script><script src="systemPipeVARseq_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="systemPipeVARseq_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="systemPipeVARseq_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>VAR-Seq Workflow Template</h1>
                         <h4 class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 class="date">Last update: 14 October, 2020</h4>
+            <h4 class="date">Last update: 29 October, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/systemPipeR/systemPipeVARseq/blob/master/vignettes/systemPipeVARseq.Rmd"><code>vignettes/systemPipeVARseq.Rmd</code></a></small>
       <div class="hidden name"><code>systemPipeVARseq.Rmd</code></div>
@@ -576,7 +577,7 @@ Figure 1: FASTQ quality report for 18 samples
 <p>Variants overlapping with common annotation features can be identified with <code>locateVariants</code>.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit">
 <span class="va">dir_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/cwl/varseq"</span>, package <span class="op">=</span> <span class="st">"systemPipeR"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"GenomicFeatures"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.org/packages/GenomicFeatures">"GenomicFeatures"</a></span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span><span class="op">(</span>targets <span class="op">=</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, 
     wf_file <span class="op">=</span> <span class="st">"annotate.cwl"</span>, input_file <span class="op">=</span> <span class="st">"varseq.yml"</span>, dir_path <span class="op">=</span> <span class="va">dir_path</span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span><span class="op">(</span><span class="va">args</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FileName1 <span class="op">=</span> <span class="st">"_FILE1_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span><span class="op">)</span>
@@ -594,7 +595,7 @@ Figure 1: FASTQ quality report for 18 samples
 <a href="#annotate-filtered-variants-gatk" class="anchor"></a>Annotate filtered variants <code>GATK</code>
 </h2>
 <div class="sourceCode" id="cb32"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"GenomicFeatures"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.org/packages/GenomicFeatures">"GenomicFeatures"</a></span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span><span class="op">(</span>targets <span class="op">=</span> <span class="st">"./results/targets_filter_gatk.txt"</span>, 
     wf_file <span class="op">=</span> <span class="st">"annotate.cwl"</span>, input_file <span class="op">=</span> <span class="st">"varseq.yml"</span>, dir_path <span class="op">=</span> <span class="va">dir_path</span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span><span class="op">(</span><span class="va">args</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FileName1 <span class="op">=</span> <span class="st">"_FILE1_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span><span class="op">)</span>
@@ -612,7 +613,7 @@ Figure 1: FASTQ quality report for 18 samples
 <a href="#annotate-filtered-variants-bcftools" class="anchor"></a>Annotate filtered variants <code>bcftools</code>
 </h2>
 <div class="sourceCode" id="cb33"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"GenomicFeatures"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.org/packages/GenomicFeatures">"GenomicFeatures"</a></span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/loadWorkflow.html">loadWorkflow</a></span><span class="op">(</span>targets <span class="op">=</span> <span class="st">"./results/targets_filter_bcf.txt"</span>, 
     wf_file <span class="op">=</span> <span class="st">"annotate.cwl"</span>, input_file <span class="op">=</span> <span class="st">"varseq.yml"</span>, dir_path <span class="op">=</span> <span class="va">dir_path</span><span class="op">)</span>
 <span class="va">args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span><span class="op">(</span><span class="va">args</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FileName1 <span class="op">=</span> <span class="st">"_FILE1_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span><span class="op">)</span>

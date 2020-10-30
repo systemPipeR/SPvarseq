@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   systemPipeVARseq: systemPipeVARseq.html
-last_built: 2020-10-14T17:39Z
+last_built: 2020-10-30T03:31Z
 urls:
   reference: http://girke.bioinformatics.ucr.edu/systemPipeR//reference
   article: http://girke.bioinformatics.ucr.edu/systemPipeR//articles
