@@ -1,4 +1,4 @@
-title: systemPipeVARseq
+title: SPvarseq
 url: http://girke.bioinformatics.ucr.edu/systemPipeR/
 
 authors:
@@ -25,13 +25,13 @@ template:
     ganalytics: UA-158796879-1
 
 navbar:
-  title: "systemPipeVARseq"
+  title: "SPvarseq"
   left:
     - icon: fas fa-home fa-lg
       href: index.html
     - text: "Workflow"
-      href: articles/systemPipeVARseq.html
+      href: articles/SPvarseq.html
       icon: fas fa-book
   right:
     - icon: fa-github fa-lg
-      href: https://github.com/systemPipeR/systemPipeVARseq
+      href: https://github.com/systemPipeR/SPvarseq
