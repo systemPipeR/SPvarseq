@@ -1,0 +1,8 @@
+^README\.Rmd$
+^logs\.sh$
+^_pkgdown\.yml$
+^SPvarseq\.Rproj$
+^\.Rproj\.user$
+^inst/rmarkdown/templates/SPvarseq/skeleton/.batchtools.conf.R
+^\.github
+^inst/extdata/.batchtools.conf.R

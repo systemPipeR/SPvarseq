@@ -20,7 +20,6 @@ bibliography: bibtex.bib
 Rscript -e "rmarkdown::render('SPvarseq.Rmd', c('BiocStyle::html_document'), clean=FALSE); knitr::knit('SPvarseq.Rmd', tangle=TRUE)"; Rscript -e "rmarkdown::render('SPvarseq.Rmd', c('BiocStyle::pdf_document'))"
 -->
 
-
 ```{css, echo=FALSE}
 pre code {
 white-space: pre !important;

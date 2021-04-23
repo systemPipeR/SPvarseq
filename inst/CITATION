@@ -13,4 +13,5 @@ citEntry(entry="article",
          textVersion = 
          paste("Backman TWH, Girke T (2016)", 
                "systemPipeR: NGS workflow and report generation environment.",
-                "BMC Bioinformatics 17 (1), doi: 10.1186/s12859-016-1241-0."))
+                "BMC Bioinformatics 17 (1), doi: 10.1186/s12859-016-1241-0.")
+)
