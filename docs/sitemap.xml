@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://systempipe.org/SPvarseq//index.html</loc>
+    <loc>https://systempipe.org/SPvarseq/404.html</loc>
   </url>
   <url>
-    <loc>https://systempipe.org/SPvarseq//articles/SPvarseq.html</loc>
+    <loc>https://systempipe.org/SPvarseq/articles/SPvarseq.html</loc>
+  </url>
+  <url>
+    <loc>https://systempipe.org/SPvarseq/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://systempipe.org/SPvarseq/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://systempipe.org/SPvarseq/index.html</loc>
+  </url>
+  <url>
+    <loc>https://systempipe.org/SPvarseq/reference/index.html</loc>
   </url>
 </urlset>
