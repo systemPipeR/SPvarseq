@@ -277,7 +277,7 @@ Figure 1: FASTQ quality report for 18 samples
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList.html" class="external-link">SYSargsList</a></span><span class="op">(</span>step_name <span class="op">=</span> <span class="st">"bwa_alignment"</span>, targets <span class="op">=</span> <span class="st">"targetsPE_varseq.txt"</span>,
     wf_file <span class="op">=</span> <span class="st">"gatk/workflow_bwa-pe.cwl"</span>, input_file <span class="op">=</span> <span class="st">"gatk/gatk.yaml"</span>,
     dir_path <span class="op">=</span> <span class="st">"param/cwl"</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FileName1 <span class="op">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
-        FileName1 <span class="op">=</span> <span class="st">"_FASTQ_PATH2_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span>,
+        FileName2 <span class="op">=</span> <span class="st">"_FASTQ_PATH2_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span>,
     dependency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"faidx_index"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
