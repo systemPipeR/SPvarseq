@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Update hash
         run: |
-          bash .github/bash/update_rmd.sh https://github.com/systemPipeR/systemPipeRdata.git vignettes/
+          bash .github/bash/update_rmd.sh https://github.com/tgirke/systemPipeRdata.git vignettes/
       - name: Update github
         run: |
           git config --local user.name "dcassol"
